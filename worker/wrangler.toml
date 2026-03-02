@@ -1,0 +1,7 @@
+name = "tangle-tools-router"
+main = "src/index.ts"
+compatibility_date = "2026-03-01"
+
+routes = [
+  { pattern = "tangle.tools/blog*", zone_name = "tangle.tools" }
+]

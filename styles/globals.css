@@ -1,0 +1,248 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Geist", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Geist Mono", ui-monospace, monospace;
+
+  --color-brand: #7C3AED;
+  --color-brand-light: #8B5CF6;
+  --color-brand-dark: #6D28D9;
+}
+
+/* Base styles */
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Prose typography for blog posts */
+.prose {
+  --tw-prose-body: var(--color-neutral-700);
+  --tw-prose-headings: var(--color-neutral-900);
+  --tw-prose-links: var(--color-brand);
+  --tw-prose-code: var(--color-neutral-800);
+  --tw-prose-pre-bg: transparent;
+  line-height: 1.8;
+  font-size: 1.0625rem;
+}
+
+:is(.dark) .prose {
+  --tw-prose-body: var(--color-neutral-300);
+  --tw-prose-headings: var(--color-neutral-50);
+  --tw-prose-links: var(--color-brand-light);
+  --tw-prose-code: var(--color-neutral-200);
+}
+
+.prose h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+  letter-spacing: -0.025em;
+  scroll-margin-top: 5rem;
+}
+
+.prose h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+  letter-spacing: -0.02em;
+  scroll-margin-top: 5rem;
+}
+
+.prose p {
+  margin-top: 0;
+  margin-bottom: 1.25rem;
+}
+
+.prose a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: var(--color-brand);
+  transition: color 0.15s, text-decoration-color 0.15s;
+}
+
+.prose a:hover {
+  color: var(--color-brand);
+}
+
+.prose strong {
+  font-weight: 600;
+  color: var(--tw-prose-headings);
+}
+
+.prose ul, .prose ol {
+  margin-top: 0.5rem;
+  margin-bottom: 1.25rem;
+  padding-left: 1.5rem;
+}
+
+.prose li {
+  margin-top: 0.25rem;
+  margin-bottom: 0.25rem;
+}
+
+.prose li::marker {
+  color: var(--color-neutral-400);
+}
+
+:is(.dark) .prose li::marker {
+  color: var(--color-neutral-500);
+}
+
+/* Inline code */
+.prose :not(pre) > code {
+  font-size: 0.875em;
+  font-weight: 500;
+  padding: 0.2em 0.4em;
+  border-radius: 0.375rem;
+  background-color: var(--color-neutral-100);
+  border: 1px solid var(--color-neutral-200);
+}
+
+:is(.dark) .prose :not(pre) > code {
+  background-color: var(--color-neutral-800);
+  border-color: var(--color-neutral-700);
+}
+
+.prose :not(pre) > code::before,
+.prose :not(pre) > code::after {
+  content: none;
+}
+
+/* Code blocks - rehype-pretty-code */
+.prose pre {
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  padding: 0;
+  background: transparent !important;
+  border: none;
+}
+
+.prose figure[data-rehype-pretty-code-figure] {
+  margin: 0 0 1.5rem 0;
+  position: relative;
+}
+
+/* Code block container */
+figure[data-rehype-pretty-code-figure] pre {
+  overflow-x: auto;
+  padding: 1rem 0;
+  border-radius: 0.75rem;
+  border: 1px solid var(--color-neutral-200);
+  background: var(--color-neutral-50) !important;
+  font-size: 0.875rem;
+  line-height: 1.7;
+}
+
+:is(.dark) figure[data-rehype-pretty-code-figure] pre {
+  border-color: var(--color-neutral-800);
+  background: #0d1117 !important;
+}
+
+figure[data-rehype-pretty-code-figure] pre code {
+  display: grid;
+  counter-reset: line;
+}
+
+figure[data-rehype-pretty-code-figure] pre code > [data-line] {
+  padding: 0 1.25rem;
+  border-left: 2px solid transparent;
+}
+
+/* Line highlighting */
+figure[data-rehype-pretty-code-figure] pre code > [data-highlighted-line] {
+  background: rgba(124, 58, 237, 0.08);
+  border-left-color: var(--color-brand);
+}
+
+:is(.dark) figure[data-rehype-pretty-code-figure] pre code > [data-highlighted-line] {
+  background: rgba(124, 58, 237, 0.15);
+}
+
+/* Line numbers */
+figure[data-rehype-pretty-code-figure] pre code[data-line-numbers] > [data-line]::before {
+  counter-increment: line;
+  content: counter(line);
+  display: inline-block;
+  width: 1rem;
+  margin-right: 1.25rem;
+  text-align: right;
+  color: var(--color-neutral-400);
+  font-size: 0.75rem;
+}
+
+:is(.dark) figure[data-rehype-pretty-code-figure] pre code[data-line-numbers] > [data-line]::before {
+  color: var(--color-neutral-600);
+}
+
+/* Code title / filename header */
+figure[data-rehype-pretty-code-figure] figcaption[data-rehype-pretty-code-title] {
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  padding: 0.625rem 1.25rem;
+  border-radius: 0.75rem 0.75rem 0 0;
+  border: 1px solid var(--color-neutral-200);
+  border-bottom: none;
+  background: var(--color-neutral-100);
+  color: var(--color-neutral-600);
+}
+
+:is(.dark) figure[data-rehype-pretty-code-figure] figcaption[data-rehype-pretty-code-title] {
+  border-color: var(--color-neutral-800);
+  background: #161b22;
+  color: var(--color-neutral-400);
+}
+
+figure[data-rehype-pretty-code-figure]:has(figcaption) pre {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+/* Blockquotes */
+.prose blockquote {
+  border-left: 3px solid var(--color-brand);
+  padding-left: 1rem;
+  font-style: normal;
+  color: var(--color-neutral-600);
+}
+
+:is(.dark) .prose blockquote {
+  color: var(--color-neutral-400);
+}
+
+/* Horizontal rules */
+.prose hr {
+  border-color: var(--color-neutral-200);
+  margin: 2rem 0;
+}
+
+:is(.dark) .prose hr {
+  border-color: var(--color-neutral-800);
+}
+
+/* TOC active state */
+.toc-link.active {
+  color: var(--color-brand);
+  font-weight: 500;
+}
+
+/* Scrollbar styling for code blocks */
+figure[data-rehype-pretty-code-figure] pre::-webkit-scrollbar {
+  height: 6px;
+}
+
+figure[data-rehype-pretty-code-figure] pre::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+figure[data-rehype-pretty-code-figure] pre::-webkit-scrollbar-thumb {
+  background: var(--color-neutral-300);
+  border-radius: 3px;
+}
+
+:is(.dark) figure[data-rehype-pretty-code-figure] pre::-webkit-scrollbar-thumb {
+  background: var(--color-neutral-700);
+}
