@@ -1,6 +1,6 @@
 import type { PostFrontmatter } from "@/lib/posts";
 
-const BLOG_BASE_PATH = "/blog";
+const BLOG_BASE_PATH = "/post";
 const SITE_ORIGIN = "https://tangle.tools";
 
 const FRONTMATTER_IMAGE_KEYS = [

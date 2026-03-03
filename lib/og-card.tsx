@@ -93,7 +93,7 @@ export function OgCard({ eyebrow, title, summary, imageUrl }: OgCardProps) {
             <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
           </svg>
           <span style={{ fontSize: "24px", fontWeight: 600, color: "#efe7ff" }}>
-            tangle.tools/blog
+            tangle.tools/post
           </span>
         </div>
       </div>

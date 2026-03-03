@@ -8,7 +8,7 @@ export default function NotFound() {
         This page doesn&apos;t exist.
       </p>
       <Link
-        href="/"
+        href="/post"
         className="rounded-lg bg-[color:var(--color-brand-strong)] px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-[color:var(--color-brand)]"
       >
         Back to blog

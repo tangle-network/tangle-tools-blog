@@ -22,7 +22,7 @@ export const metadata: Metadata = {
   ],
   metadataBase: new URL("https://tangle.tools"),
   alternates: {
-    canonical: "/blog",
+    canonical: "/post",
     types: {
       "application/rss+xml": "/feed.xml",
     },
@@ -30,14 +30,14 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "/blog",
+    url: "/post",
     siteName: "Tangle Blog",
     title: "Tangle Blog",
     description:
       "Technical deep-dives into decentralized infrastructure, blueprints, TEE, verification, and building on-chain services.",
     images: [
       {
-        url: "/blog/og",
+        url: "/og",
         width: 1200,
         height: 630,
         alt: "Tangle Blog",
@@ -49,7 +49,7 @@ export const metadata: Metadata = {
     title: "Tangle Blog",
     description:
       "Technical deep-dives into decentralized infrastructure, blueprints, TEE, verification, and building on-chain services.",
-    images: ["/blog/og"],
+    images: ["/og"],
     creator: "@tabordrewstone",
     site: "@tangle_network",
   },

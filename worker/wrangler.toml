@@ -3,5 +3,16 @@ main = "src/index.ts"
 compatibility_date = "2026-03-01"
 
 routes = [
-  { pattern = "tangle.tools/blog*", zone_name = "tangle.tools" }
+  { pattern = "tangle.tools/blog", zone_name = "tangle.tools" },
+  { pattern = "tangle.tools/blog/*", zone_name = "tangle.tools" },
+  { pattern = "tangle.tools/post", zone_name = "tangle.tools" },
+  { pattern = "tangle.tools/post/*", zone_name = "tangle.tools" },
+  { pattern = "tangle.tools/feed.xml", zone_name = "tangle.tools" },
+  { pattern = "tangle.tools/sitemap.xml", zone_name = "tangle.tools" },
+  { pattern = "tangle.tools/images/*", zone_name = "tangle.tools" },
+  { pattern = "tangle.tools/og", zone_name = "tangle.tools" },
+  { pattern = "tangle.tools/og/*", zone_name = "tangle.tools" }
 ]
+
+[vars]
+BLOG_ORIGIN = "https://blog-origin.tangle.tools"
