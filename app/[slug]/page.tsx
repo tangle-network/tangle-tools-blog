@@ -2,6 +2,11 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getPostBySlug, getPostSlugs, getAdjacentSeriesPosts } from "@/lib/posts";
 import { renderMDX, extractHeadings } from "@/lib/mdx";
+import {
+  buildArticleStructuredData,
+  buildFaqStructuredData,
+  extractFaqEntries,
+} from "@/lib/structured-data";
 import { PostHeader } from "@/components/post-header";
 import { PostFooter } from "@/components/post-footer";
 import { TableOfContents } from "@/components/toc";
@@ -22,20 +27,25 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     return {
       title: post.frontmatter.title,
       description: post.frontmatter.summary,
+      keywords: post.frontmatter.tags,
+      alternates: {
+        canonical: `/blog/${slug}`,
+      },
       openGraph: {
         title: post.frontmatter.title,
         description: post.frontmatter.summary,
         type: "article",
+        url: `/blog/${slug}`,
         publishedTime: post.frontmatter.date,
         authors: [post.frontmatter.author],
         tags: post.frontmatter.tags,
-        images: [`/og/${slug}`],
+        images: [`/blog/og/${slug}`],
       },
       twitter: {
         card: "summary_large_image",
         title: post.frontmatter.title,
         description: post.frontmatter.summary,
-        images: [`/og/${slug}`],
+        images: [`/blog/og/${slug}`],
       },
     };
   } catch {
@@ -55,6 +65,15 @@ export default async function PostPage({ params }: PageProps) {
 
   const { frontmatter, content, readingTime } = post;
   const headings = extractHeadings(content);
+  const faqEntries = extractFaqEntries(content);
+  const articleStructuredData = buildArticleStructuredData(
+    frontmatter,
+    slug,
+    readingTime,
+    content
+  );
+  const faqStructuredData =
+    faqEntries.length > 0 ? buildFaqStructuredData(faqEntries) : null;
   const { content: mdxContent } = await renderMDX(content);
 
   const seriesNav =
@@ -64,6 +83,16 @@ export default async function PostPage({ params }: PageProps) {
 
   return (
     <article className="mx-auto max-w-5xl px-6 py-12">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleStructuredData) }}
+      />
+      {faqStructuredData && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqStructuredData) }}
+        />
+      )}
       <div className="lg:grid lg:grid-cols-[minmax(0,1fr)_240px] lg:gap-10">
         <div className="min-w-0">
           <PostHeader frontmatter={frontmatter} readingTime={readingTime} />
