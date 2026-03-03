@@ -11,7 +11,7 @@ export function PostCard({ post }: { post: Post }) {
   const thumbnailAlt = resolveFrontmatterImageAlt(frontmatter) ?? frontmatter.title;
 
   return (
-    <Link href={`/${frontmatter.slug}`} className="group block h-full">
+    <Link href={`/post/${frontmatter.slug}`} className="group block h-full">
       <article className="surface-card flex h-full flex-col overflow-hidden rounded-2xl p-2 transition-all duration-200 hover:-translate-y-0.5 hover:border-[color:var(--border-strong)]">
         <div className="aspect-[16/9]">
           <PostImage
