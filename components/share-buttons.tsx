@@ -5,7 +5,7 @@ import { Link2, Check } from "lucide-react";
 
 export function ShareButtons({ title, slug }: { title: string; slug: string }) {
   const [copied, setCopied] = useState(false);
-  const url = `https://tangle.tools/blog/${slug}`;
+  const url = `https://tangle.tools/post/${slug}`;
 
   const copyLink = async () => {
     try {

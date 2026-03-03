@@ -3,8 +3,8 @@ import Link from "next/link";
 type AnchorProps = React.ComponentPropsWithoutRef<"a">;
 
 function normalizeHref(rawHref: string): string {
-  if (rawHref.startsWith("/post/")) {
-    return `/${rawHref.slice(6)}`;
+  if (rawHref.startsWith("/blog/")) {
+    return `/post/${rawHref.slice(6)}`;
   }
   return rawHref;
 }

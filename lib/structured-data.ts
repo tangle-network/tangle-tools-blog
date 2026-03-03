@@ -6,7 +6,7 @@ export interface FaqEntry {
   answer: string;
 }
 
-const SITE_URL = "https://tangle.tools/blog";
+const SITE_URL = "https://tangle.tools/post";
 
 function stripMarkdown(raw: string): string {
   return raw
