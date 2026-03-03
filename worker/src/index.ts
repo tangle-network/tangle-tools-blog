@@ -1,5 +1,5 @@
 /**
- * Cloudflare Worker that routes /blog/* to the Vercel-hosted Next.js blog.
+ * Cloudflare Worker that routes /blog/* to the Netlify-hosted Next.js blog.
  * Everything else falls through to Webflow (the default origin).
  *
  * Deploy: cd worker && npx wrangler deploy

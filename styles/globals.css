@@ -74,6 +74,22 @@ html {
   color: var(--color-brand);
 }
 
+:is(.dark) .prose a:hover {
+  color: var(--color-brand-light);
+}
+
+/* Heading anchor links inherit heading styles, not link styles */
+.prose h2 a.anchor,
+.prose h3 a.anchor {
+  color: inherit;
+  text-decoration: none;
+}
+
+.prose h2 a.anchor:hover,
+.prose h3 a.anchor:hover {
+  color: inherit;
+}
+
 .prose strong {
   font-weight: 600;
   color: var(--tw-prose-headings);
@@ -134,7 +150,7 @@ html {
 }
 
 /* Shiki multi-theme: switch token colors in dark mode */
-.dark figure[data-rehype-pretty-code-figure] code span {
+:is(.dark) figure[data-rehype-pretty-code-figure] code span {
   color: var(--shiki-dark) !important;
 }
 
@@ -223,6 +239,36 @@ figure[data-rehype-pretty-code-figure]:has(figcaption) pre {
 
 :is(.dark) .prose blockquote {
   color: var(--color-neutral-400);
+}
+
+/* Tables (GFM) */
+.prose table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+  margin-bottom: 1.5rem;
+  font-size: 0.875rem;
+}
+
+.prose th {
+  font-weight: 600;
+  text-align: left;
+  padding: 0.625rem 1rem;
+  border-bottom: 2px solid var(--color-neutral-200);
+  color: var(--tw-prose-headings);
+}
+
+.prose td {
+  padding: 0.625rem 1rem;
+  border-bottom: 1px solid var(--color-neutral-200);
+}
+
+:is(.dark) .prose th {
+  border-bottom-color: var(--color-neutral-700);
+}
+
+:is(.dark) .prose td {
+  border-bottom-color: var(--color-neutral-800);
 }
 
 /* Horizontal rules */
