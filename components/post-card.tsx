@@ -1,51 +1,61 @@
 import Link from "next/link";
 import type { Post } from "@/lib/posts";
 import { formatDate } from "@/lib/utils";
-import { Clock, Calendar } from "lucide-react";
+import { ArrowRight, Clock3, Calendar } from "lucide-react";
 
 export function PostCard({ post }: { post: Post }) {
   const { frontmatter, readingTime } = post;
 
   return (
-    <Link href={`/${frontmatter.slug}`} className="group block">
-      <article className="rounded-xl border border-neutral-200 bg-white p-6 transition-all duration-200 hover:border-neutral-300 hover:shadow-lg hover:shadow-neutral-200/50 dark:border-neutral-800 dark:bg-neutral-900/50 dark:hover:border-neutral-700 dark:hover:shadow-neutral-900/50">
+    <Link href={`/${frontmatter.slug}`} className="group block h-full">
+      <article className="surface-card h-full rounded-2xl p-6 transition-all duration-200 hover:-translate-y-0.5 hover:border-[color:var(--border-strong)]">
         {frontmatter.series && (
-          <div className="mb-3 flex items-center gap-2">
-            <span className="rounded-full bg-brand/10 px-2.5 py-0.5 text-xs font-medium text-brand dark:bg-brand/20">
+          <div className="mb-4 flex items-center gap-2">
+            <span className="rounded-full border border-[color:var(--color-brand)]/25 bg-[color:var(--color-brand-soft)] px-2.5 py-0.5 text-xs font-semibold tracking-wide text-[color:var(--color-brand-strong)]">
               {frontmatter.series}
             </span>
             {frontmatter.seriesOrder && (
-              <span className="text-xs text-neutral-400 dark:text-neutral-500">
+              <span className="text-xs text-[color:var(--text-muted)]">
                 Day {frontmatter.seriesOrder}
               </span>
             )}
           </div>
         )}
-        <h2 className="mb-2 text-lg font-semibold tracking-tight text-neutral-900 transition-colors group-hover:text-brand dark:text-neutral-100">
+
+        <h2 className="mb-2 text-xl font-semibold tracking-tight text-[color:var(--text-strong)] transition-colors group-hover:text-[color:var(--color-brand-strong)]">
           {frontmatter.title}
         </h2>
-        <p className="mb-4 line-clamp-2 text-sm leading-relaxed text-neutral-600 dark:text-neutral-400">
+
+        <p className="mb-5 line-clamp-3 text-sm leading-relaxed text-[color:var(--text-body)]">
           {frontmatter.summary}
         </p>
-        <div className="flex items-center gap-4 text-xs text-neutral-500 dark:text-neutral-500">
-          <span className="flex items-center gap-1">
-            <Calendar className="h-3 w-3" />
+
+        <div className="mb-4 flex flex-wrap items-center gap-3 text-xs text-[color:var(--text-muted)]">
+          <span className="flex items-center gap-1.5">
+            <Calendar className="h-3.5 w-3.5" />
             {formatDate(frontmatter.date)}
           </span>
-          <span className="flex items-center gap-1">
-            <Clock className="h-3 w-3" />
+          <span className="flex items-center gap-1.5">
+            <Clock3 className="h-3.5 w-3.5" />
             {readingTime}
           </span>
         </div>
-        <div className="mt-3 flex flex-wrap gap-1.5">
-          {frontmatter.tags.map((tag) => (
-            <span
-              key={tag}
-              className="rounded-md bg-neutral-100 px-2 py-0.5 text-xs text-neutral-600 dark:bg-neutral-800 dark:text-neutral-400"
-            >
-              {tag}
-            </span>
-          ))}
+
+        <div className="mt-auto flex items-center justify-between gap-3">
+          <div className="flex flex-wrap gap-1.5">
+            {frontmatter.tags.slice(0, 3).map((tag) => (
+              <span
+                key={tag}
+                className="rounded-md border border-[color:var(--border-subtle)] bg-[color:var(--bg-subtle)]/50 px-2 py-0.5 text-[11px] text-[color:var(--text-muted)]"
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+          <span className="inline-flex items-center gap-1 text-xs font-medium text-[color:var(--color-brand-strong)]">
+            Read
+            <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
+          </span>
         </div>
       </article>
     </Link>

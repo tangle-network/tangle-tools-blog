@@ -3,11 +3,11 @@ import { ThemeToggle } from "./theme-toggle";
 
 export function Header() {
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-neutral-200 bg-white/80 backdrop-blur-xl dark:border-neutral-800 dark:bg-neutral-950/80">
+    <header className="sticky top-0 z-50 w-full border-b shell-divider bg-[color:var(--bg-canvas)]/80 backdrop-blur-xl">
       <div className="mx-auto flex h-14 max-w-5xl items-center justify-between px-6">
         <Link
           href="/"
-          className="flex items-center gap-2.5 font-semibold tracking-tight text-neutral-900 dark:text-neutral-100"
+          className="flex items-center gap-2.5 font-semibold tracking-tight text-[color:var(--text-strong)]"
         >
           <svg
             width="20"
@@ -25,15 +25,15 @@ export function Header() {
             />
           </svg>
           tangle.tools
-          <span className="text-neutral-400 dark:text-neutral-600">/</span>
-          <span className="text-neutral-500 dark:text-neutral-400">blog</span>
+          <span className="text-[color:var(--text-muted)]">/</span>
+          <span className="text-[color:var(--text-muted)]">blog</span>
         </Link>
         <div className="flex items-center gap-3">
           <a
             href="https://github.com/tangle-network"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex h-9 w-9 items-center justify-center rounded-lg text-neutral-500 transition-colors hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100"
+            className="flex h-9 w-9 items-center justify-center rounded-lg text-[color:var(--text-muted)] transition-colors hover:text-[color:var(--text-strong)]"
             aria-label="GitHub"
           >
             <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
