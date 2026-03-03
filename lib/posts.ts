@@ -14,7 +14,11 @@ export interface PostFrontmatter {
   tags: string[];
   series?: string;
   seriesOrder?: number;
+  coverImage?: string;
+  heroImage?: string;
   image?: string;
+  thumbnail?: string;
+  imageAlt?: string;
 }
 
 export interface Post {

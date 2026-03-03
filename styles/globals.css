@@ -3,13 +3,13 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-  --font-sans: "Geist", "Avenir Next", "Segoe UI", sans-serif;
-  --font-mono: "Geist Mono", "SF Mono", "JetBrains Mono", monospace;
+  --font-sans: "Space Grotesk", "Avenir Next", "Segoe UI", sans-serif;
+  --font-mono: "Space Mono", "SF Mono", "JetBrains Mono", monospace;
 
-  --color-brand: #1196e6;
-  --color-brand-strong: #0f62fe;
-  --color-brand-soft: #d6edff;
-  --color-brand-glow: #7cc7ff;
+  --color-brand: #8f5cff;
+  --color-brand-strong: #7c3aed;
+  --color-brand-soft: #ece4ff;
+  --color-brand-glow: #caa9ff;
 }
 
 html {
@@ -21,112 +21,112 @@ html {
 :root {
   color-scheme: light;
 
-  --bg-canvas: #eef3f9;
-  --bg-elevated: #f8fbff;
+  --bg-canvas: #f4f0ff;
+  --bg-elevated: #faf7ff;
   --bg-card: #ffffff;
-  --bg-subtle: #e2eaf4;
+  --bg-subtle: #ede5ff;
 
-  --text-strong: #0a1525;
-  --text-body: #1a2a40;
-  --text-muted: #4d607a;
+  --text-strong: #1a1230;
+  --text-body: #2f2647;
+  --text-muted: #695d83;
 
-  --border-strong: #b8c9de;
-  --border-subtle: #d2deec;
+  --border-strong: #d6caed;
+  --border-subtle: #e4dbf5;
 
-  --shadow-card: 0 10px 35px -24px rgba(7, 26, 55, 0.45);
-  --shadow-soft: 0 14px 35px -28px rgba(7, 26, 55, 0.35);
+  --shadow-card: 0 14px 36px -24px rgba(40, 22, 80, 0.34);
+  --shadow-soft: 0 16px 34px -28px rgba(40, 22, 80, 0.28);
 
   --prose-body: var(--text-body);
   --prose-headings: var(--text-strong);
   --prose-links: var(--color-brand-strong);
-  --prose-link-hover: #0f4d9a;
-  --prose-code: #13253e;
-  --prose-marker: #617998;
-  --prose-inline-code-bg: #e7eef8;
-  --prose-inline-code-border: #c6d4e7;
-  --prose-blockquote: #2b405e;
-  --prose-hr: #c9d7e8;
-  --prose-table-border-strong: #c0d0e4;
-  --prose-table-border: #d2dfed;
+  --prose-link-hover: #5d2ac8;
+  --prose-code: #261a45;
+  --prose-marker: #706090;
+  --prose-inline-code-bg: #f0e9ff;
+  --prose-inline-code-border: #d8caf6;
+  --prose-blockquote: #46366b;
+  --prose-hr: #d8cdf1;
+  --prose-table-border-strong: #cfbfe9;
+  --prose-table-border: #e1d7f3;
 
-  --code-shell-bg: #f5f9ff;
-  --code-shell-border: #c9d8e9;
-  --code-title-bg: #e8f0fa;
-  --code-title-fg: #486181;
-  --code-line-number: #7a90ab;
-  --code-highlight-bg: rgba(17, 150, 230, 0.14);
-  --code-scrollbar-thumb: #b8c8dc;
-  --code-copy-bg: rgba(248, 251, 255, 0.95);
-  --code-copy-border: #c3d3e8;
-  --code-copy-fg: #38506f;
+  --code-shell-bg: #f6f0ff;
+  --code-shell-border: #d8caf1;
+  --code-title-bg: #eee4ff;
+  --code-title-fg: #5a4b81;
+  --code-line-number: #826fa8;
+  --code-highlight-bg: rgba(143, 92, 255, 0.15);
+  --code-scrollbar-thumb: #c6b5e3;
+  --code-copy-bg: rgba(252, 249, 255, 0.95);
+  --code-copy-border: #d7c9f2;
+  --code-copy-fg: #4f3c73;
 
-  --media-frame-bg: #edf3fb;
-  --media-frame-border: #cddbed;
+  --media-frame-bg: #f3ebff;
+  --media-frame-border: #d8ccf3;
 
-  --shell-outline: rgba(7, 26, 55, 0.12);
-  --focus-ring: rgba(15, 98, 254, 0.42);
+  --shell-outline: rgba(53, 31, 97, 0.14);
+  --focus-ring: rgba(124, 58, 237, 0.42);
 }
 
 .dark {
   color-scheme: dark;
 
-  --bg-canvas: #040a14;
-  --bg-elevated: #0b1628;
-  --bg-card: #0f1d32;
-  --bg-subtle: #172742;
+  --bg-canvas: #090510;
+  --bg-elevated: #120a22;
+  --bg-card: #18102c;
+  --bg-subtle: #261b40;
 
-  --text-strong: #ebf3ff;
-  --text-body: #c8d8ec;
-  --text-muted: #8ca3c2;
+  --text-strong: #f5edff;
+  --text-body: #d5c8ed;
+  --text-muted: #a696c3;
 
-  --border-strong: #2d4262;
-  --border-subtle: #243752;
+  --border-strong: #4a3772;
+  --border-subtle: #3a2c5f;
 
   --shadow-card: 0 16px 42px -24px rgba(0, 0, 0, 0.75);
   --shadow-soft: 0 16px 34px -26px rgba(0, 0, 0, 0.72);
 
-  --prose-body: #c2d3e8;
-  --prose-headings: #f4f8ff;
-  --prose-links: #70c2ff;
-  --prose-link-hover: #95d4ff;
-  --prose-code: #d7e8ff;
-  --prose-marker: #7f96b2;
-  --prose-inline-code-bg: #162742;
-  --prose-inline-code-border: #2a4262;
-  --prose-blockquote: #abc0d9;
-  --prose-hr: #233750;
-  --prose-table-border-strong: #2f4666;
-  --prose-table-border: #263b59;
+  --prose-body: #cfc0e7;
+  --prose-headings: #f7f1ff;
+  --prose-links: #bc8aff;
+  --prose-link-hover: #ceb0ff;
+  --prose-code: #ebdcff;
+  --prose-marker: #9c87c2;
+  --prose-inline-code-bg: #2b1e47;
+  --prose-inline-code-border: #4b3770;
+  --prose-blockquote: #ceb4ef;
+  --prose-hr: #3f2f61;
+  --prose-table-border-strong: #513a78;
+  --prose-table-border: #423065;
 
-  --code-shell-bg: #0a1220;
-  --code-shell-border: #253850;
-  --code-title-bg: #111c2f;
-  --code-title-fg: #8ba5c4;
-  --code-line-number: #5a6f8c;
-  --code-highlight-bg: rgba(112, 194, 255, 0.17);
-  --code-scrollbar-thumb: #2e4768;
-  --code-copy-bg: rgba(16, 29, 49, 0.9);
-  --code-copy-border: #304766;
-  --code-copy-fg: #bad3f2;
+  --code-shell-bg: #100a1d;
+  --code-shell-border: #3d2d5f;
+  --code-title-bg: #1a122d;
+  --code-title-fg: #b09ace;
+  --code-line-number: #7c69a1;
+  --code-highlight-bg: rgba(188, 138, 255, 0.2);
+  --code-scrollbar-thumb: #4d3b71;
+  --code-copy-bg: rgba(23, 15, 39, 0.92);
+  --code-copy-border: #513b78;
+  --code-copy-fg: #d9c3fb;
 
-  --media-frame-bg: #101d30;
-  --media-frame-border: #243a57;
+  --media-frame-bg: #1a1230;
+  --media-frame-border: #3b2b5f;
 
-  --shell-outline: rgba(126, 161, 205, 0.2);
-  --focus-ring: rgba(112, 194, 255, 0.52);
+  --shell-outline: rgba(185, 154, 233, 0.22);
+  --focus-ring: rgba(188, 138, 255, 0.55);
 }
 
 body {
   min-height: 100vh;
   background-color: var(--bg-canvas);
   background-image:
-    radial-gradient(1200px 420px at -10% -12%, rgba(17, 150, 230, 0.2), transparent 62%),
-    radial-gradient(780px 300px at 115% 8%, rgba(15, 98, 254, 0.14), transparent 67%);
+    radial-gradient(1200px 420px at -10% -12%, rgba(143, 92, 255, 0.2), transparent 62%),
+    radial-gradient(780px 320px at 115% 8%, rgba(185, 132, 255, 0.16), transparent 69%);
   color: var(--text-body);
 }
 
 ::selection {
-  background: rgba(17, 150, 230, 0.28);
+  background: rgba(143, 92, 255, 0.28);
   color: var(--text-strong);
 }
 
@@ -353,8 +353,8 @@ figure[data-rehype-pretty-code-figure] pre code > [data-highlighted-chars] {
 }
 
 .dark figure[data-rehype-pretty-code-figure] pre code > [data-highlighted-chars] {
-  background: rgba(112, 194, 255, 0.16);
-  box-shadow: 0 0 0 1px rgba(112, 194, 255, 0.28);
+  background: rgba(188, 138, 255, 0.18);
+  box-shadow: 0 0 0 1px rgba(188, 138, 255, 0.32);
 }
 
 figure[data-rehype-pretty-code-figure]

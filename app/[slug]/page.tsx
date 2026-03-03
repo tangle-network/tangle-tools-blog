@@ -7,6 +7,7 @@ import {
   buildFaqStructuredData,
   extractFaqEntries,
 } from "@/lib/structured-data";
+import { getPostSocialImage } from "@/lib/post-images";
 import { PostHeader } from "@/components/post-header";
 import { PostFooter } from "@/components/post-footer";
 import { TableOfContents } from "@/components/toc";
@@ -24,6 +25,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const { slug } = await params;
   try {
     const post = getPostBySlug(slug);
+    const socialImage = getPostSocialImage(post.frontmatter, slug);
+
     return {
       title: post.frontmatter.title,
       description: post.frontmatter.summary,
@@ -39,13 +42,13 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
         publishedTime: post.frontmatter.date,
         authors: [post.frontmatter.author],
         tags: post.frontmatter.tags,
-        images: [`/blog/og/${slug}`],
+        images: [socialImage],
       },
       twitter: {
         card: "summary_large_image",
         title: post.frontmatter.title,
         description: post.frontmatter.summary,
-        images: [`/blog/og/${slug}`],
+        images: [socialImage],
       },
     };
   } catch {

@@ -6,7 +6,13 @@ export default function BlogIndex() {
 
   return (
     <div className="mx-auto max-w-5xl px-6 py-14 sm:py-16">
-      <section className="mb-10 rounded-2xl border border-[color:var(--border-subtle)] bg-[color:var(--bg-card)] px-6 py-8 shadow-[var(--shadow-soft)] sm:px-8">
+      <section
+        className="mb-10 overflow-hidden rounded-2xl border border-[color:var(--border-subtle)] px-6 py-8 shadow-[var(--shadow-soft)] sm:px-8"
+        style={{
+          background:
+            "radial-gradient(circle at 90% -18%, color-mix(in srgb, var(--color-brand-glow) 24%, transparent), transparent 56%), linear-gradient(165deg, color-mix(in srgb, var(--bg-card) 90%, transparent), var(--bg-elevated))",
+        }}
+      >
         <p className="mb-3 inline-flex items-center gap-2 rounded-full border border-[color:var(--color-brand)]/35 bg-[color:var(--color-brand-soft)] px-3 py-1 text-xs font-semibold uppercase tracking-[0.12em] text-[color:var(--color-brand-strong)]">
           Tangle Network
         </p>

@@ -1,4 +1,5 @@
 import type { PostFrontmatter } from "@/lib/posts";
+import { getAbsolutePostSocialImage } from "@/lib/post-images";
 
 export interface FaqEntry {
   question: string;
@@ -59,7 +60,7 @@ export function buildArticleStructuredData(
     },
     mainEntityOfPage: `${SITE_URL}/${slug}`,
     url: `${SITE_URL}/${slug}`,
-    image: [`${SITE_URL}/og/${slug}`],
+    image: [getAbsolutePostSocialImage(frontmatter, slug)],
     keywords: frontmatter.tags,
     articleSection: frontmatter.series ?? "Blog",
     wordCount,
