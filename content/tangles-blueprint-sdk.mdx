@@ -1,0 +1,72 @@
+---
+title: "Build the Future with Tangle's Blueprint SDK"
+slug: tangles-blueprint-sdk
+summary: "Tangle's Blueprint SDK enables developers to build composable distributed systems with modular components for cryptography, networking, and more."
+date: "2025-03-05"
+author: "Tangle Team"
+tags: ["webflow-migration"]
+---
+
+<Callout type="info" title="Migrated from Webflow CMS">
+This post was migrated from Webflow and normalized into Markdown for readability.
+</Callout>
+
+Tangle's Blueprint SDK
+
+Tangle's Blueprint SDK is built to make developing p2p and blockchain services easier. When I was younger I wished something like this would've existed. Something that allows me to plug in any event producing system, implement custom handlers, and interface directly back onchain to trigger state changing transactions. It is far from perfect, but we work continuously to improve it towards this pursuit.
+
+‍
+
+Our SDK holds a few principles that we probably break but try nonetheless to follow. Firstly.. is that of composability. When developers build open-source services using our SDK, they immediately become composable. They double as libraries and primitives for future services. Developers can collaborate and copy to build Tangle Blueprint primitives for cryptographic and multi-party computations, for AI agents, consensus, and more. Because Blueprints are simply Rust libraries and binaries, they are interoperable with software within and outside of our ecosystem.
+
+‍
+
+We want the SDK to be useful for developers to build p2p applications and systems, creating understandable abstractions that accelerate innovation rather than hinder it. Our second principle is the single responsibility principle. Each module in our SDK is responsibile for a single purpose. We've created a modular SDK that combines keystores, networking, event driven handlers, and configuration that allows for a wide variety of custom services. The depth at which each of these components relies on one another is geared towards being as lightweight as possible. Our goals are to push this further, so that building with our SDK extends to building distributed systems generally beyond the blockchain industry. After all, the types of services we want to facilitate with our SDK are not meant to be limited solely by blockchain applications and services.
+
+‍
+
+Getting Here
+
+Tangle's origins began building multi-party computation as a service. We were inspired by Eigenlayer's distillation of restaking and soon generalized our vision to include any services.. as a service. We see our architecture as setting a foundation for a future where decentralized services and cloud infrastructures compete with the Amazon Web Services and Google Clouds of the world. We see our Blueprint SDK as a stepping stone to truly decentralized cloud compute.
+
+‍
+
+Our origins in multi-party computations as a service led us done many undesirable paths. We built and rebuilt our tools to support a variety of open source systems from threshold signatures to privacy preserving and zero-knowledge proof generation. Our initial attempts were complex and violated the single responsibility principle. Our initial attempts were not very composable. These learnings and failures have created what I think is an amazing piece of software. It would not have been possible without the dedication and passion of our team, and I applaud them for getting here.
+
+‍
+
+Breaking It Down
+
+Blockchains and crypto-enabled distributed systems are experiencing a renaissance. Our industry continues to innovate on consensus, modularity, and performance when it comes to designing distributed systems. Projects like libp2p, commonware, cosmos-sdk, substrate, libra, avalanche, hotshot, and others distributed technologies have generated immense innovations.
+
+These systems rely on few primitives:
+
+1. Cryptography
+
+2. Networking
+
+3. Modular design
+
+4. Configurable runtimes
+
+‍
+
+To that end, the Blueprint SDK provides these tools and primitives. It aims not to lock users into too many decisions, but provide a plethora of templates to aid in decision making. It doesn't claim to be all-encompassing, but we have managed to integrate a wide variety of examples to showcase how useful this toolkit can be.
+
+‍
+
+Event Driven Systems
+
+At the core of many distributed systems are events and event handlers. Recently, we rebuilt our core event execution system. Our previous mistakes designing a configurable event driven architecture drove us full-circle back to a question I recommend software developers continuously ask: "Have these problems been solved already in another domain?". The answer is often **_yes_** they have. One of the most popular event driven systems today is the HTTP server. Therefore, we model our job execution system after a popular HTTP server implementation called **_axum_**.
+
+‍
+
+Our job execution system functions like a generalized HTTP server, allowing developers to plug in any event producer -- from cron-jobs, to smart contract events, to blockchain finality notifications, or even api calls -- and write event handlers that consume these events. The job execution runner is composed of a router that routes events to these handlers. Developers can add filters over their handlers to filter events from handlers they don't intend to trigger. Collectively you can imagine this as HTTP server routes handling RESTful calls and directing them to their specific route handlers. More generally, you can produce events from any type of source and consume them in a multitude of ways, creating multiple handlers for individual events and more.
+
+‍
+
+This primitive within our SDK allows developers to build verifiable event driven services. Our pursuit has obviously been to build an SDK for the development of onchain services on Tangle, but these tools can be leveraged to create all sorts of infrastructures. You can use it to build indexers, bots, and AI agents that run external to any blockchain. You can contribute to push our vision forward of ensuring the future of distributed systems and open-source software becomes easier and more flexible with time.
+
+Conclusion
+
+We're excited to unveil the most stable release of our Blueprint SDK and hear your feedback. We'd love for you to build with us and play around with our software, whether it's integrating your own open source tools into it, building new primitives and extensions, or even collaborating to complete some of our bounties. We want to create a tremendous public good for builders experimenting with complex systems and services by building out open source implementations of such services, so that our imagination is not hindered by one's inability to build p2p networking, cryptographic abstractions, or otherwise. Let's build the future together.

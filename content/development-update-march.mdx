@@ -1,0 +1,52 @@
+---
+title: "Development Update: March"
+slug: development-update-march
+summary: "Tangle's March development sprint delivers a new testnet faucet, enhanced wallet integration, optimized bridge functionality, and early progress on the highly-anticipated Tangle Cloud platform for operators."
+date: "2025-03-10"
+author: "Tangle Team"
+tags: ["webflow-migration"]
+---
+
+<Callout type="info" title="Migrated from Webflow CMS">
+This post was migrated from Webflow and normalized into Markdown for readability.
+</Callout>
+
+1. Tangle Faucet dApp and User Experience Improvements
+
+‍
+
+We’ve deployed a Faucet to get tokens to test out staking soon on our dApp against the Tangle Testnet: The faucet is now live at Tangle Faucet . Users can claim Substrate and EVM assets to test our restaking feature soon!
+
+In addition, we've worked on improving the Substrate wallet connection UX . Instead of displaying all installed Substrate wallets to the user, the updated experience will show only the wallet selected by the user. This change is part of ongoing work to streamline the user flow.
+
+Other ongoing improvements include the resolution of the Talisman wallet popup issue and enhancements to the vault table, ensuring better sorting of undefined or null values at the bottom. We've also updated the multicall3 contract on both testnet and mainnet, improving overall functionality. These enhancements are reflected in the various pull requests, which include fixes and improvements to various aspects of the platform.
+
+2. Native Restaking Feature
+
+‍
+
+We are nearing completion of the native restaking functionality, which will allow users to restake their nominated TNT tokens. TNT will be added as an option in the restaking UI, providing a seamless experience for users who have TNT staked or nominated. This new feature will further enhance the flexibility and options available within the Tangle platform.
+
+3. Code Optimization and Backend Refinements
+
+‍
+
+From a backend perspective, we've made several significant code optimizations. We have refactored the EVM code to leverage multicall3 batching, which significantly reduces the number of requests from the frontend, mitigating issues with request overload.
+
+In terms of data management, we've removed some legacy code and deprecated API usage patterns, improving code consistency and overall developer efficiency. Furthermore, ERC-20 token metadata is now fetched on-chain dynamically rather than being hard-coded. This automatic fetching simplifies the management of token metadata, ensuring that it remains up to date without requiring manual intervention.
+
+4. UI and Network Switching Enhancements
+
+‍
+
+Several UI-related issues have been addressed, particularly focusing on optimizing the token selector for Tangle's mainnet, resolving the network switching improvements , and optimizing Bridge API Requests . These changes aim to reduce unnecessary request counts, improving performance and preventing errors like the 429 Too Many Requests error. Additionally, the Asset List Modal in the Bridge has been updated to provide a more consistent user experience.
+
+5. Tangle Cloud for Operators
+
+‍
+
+The design work for the Tangle Cloud is underway. This central hub will allow operators to monitor and manage their Tangle Blueprints, featuring key metrics such as Total Registered Operators , Recent Blueprint Deployments , Earnings by Blueprints and Instances , and Restaked Asset Management (Total Value Locked). This update will empower operators with the tools they need to efficiently track and optimize their operations.
+
+These updates represent just a portion of the ongoing efforts within our development team to refine and optimize the Tangle platform. As we continue to roll out these features and improvements, we remain focused on delivering a seamless and efficient experience for our users and operators.
+
+‍

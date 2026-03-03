@@ -1,0 +1,60 @@
+---
+title: "What is Cross-Chain Restaking"
+slug: what-is-cross-chain-restaking
+summary: "Cross-chain restaking has the potential to reshape how users put their assets to use by enabling access to restaking opportunities from any chain."
+date: "2024-12-20"
+author: "Tangle Team"
+tags: ["webflow-migration"]
+---
+
+<Callout type="info" title="Migrated from Webflow CMS">
+This post was migrated from Webflow and normalized into Markdown for readability.
+</Callout>
+
+Introduction
+
+Cross chain restaking is simply restaking with any asset from any chain. There are few flavors today that have been introduced by Nuffle and Omni, namely those using bridges and those using intents. For bridges, a cross-chain restaking protocol could use general message passing or rely on token transfers to restake deposits on the destination chain (i.e. restaking from Solana on Tangle). Intents are another way to do cross-chain restaking though still require whitelisted operators to relay and settle the mechanism.
+
+Tangle is also building a cross-chain restaking protocol into our Layer 1. We call it “Remote Restaking” since the main goal is to allow users to remotely participate in Tangle’s restaking ecosystem. Remote restaking allows us to leverage assets from anywhere without bridging the tokens directly; instead,  we opt for general message passing. Users on any chain will be able to participate, restake, and earn points in any future Tangle airdrop. Assets remain locked on the remote chain, which users earn points, incentives, and accept risk for remotely restaking their assets.
+
+‍
+
+How Cross-Chain Restaking Works
+
+Cross-chain restaking uses bridges or intent mechanisms to restake assets. The assets earn rewards and are also exposed to slashing as any other asset in the restaking infrastructure is. Though smart contracts introduce new challenges in properly applying the remote restaking actions.
+
+Cross-chain restaking protocols must define how they will relay rewards and slashing events for the remote restaked assets. They can also choose not to relay this information until the remote restaker triggers an action, caching the data for optimized processing.
+
+A cross chain restaking protocol must decide how to handle access-control and authorization for the slashing, which is arguably the most critical for any cross-chain restaking protocol. If done sloppily, it opens up huge risks to remote restakers. Tangle’s cross chain restaking protocol aims to balance between user experience and data optimization. We leverage existing bridges and authenticate messages from the contract addresses on Tangle’s EVM that manage the remote restaking records and we can augment the security of these routes as needed.
+
+Tangle optimizes the user experience in the remote restaking infrastructure by ensuring users can participate from any chain that our partner bridges are integrated with. The users can dispatch messages to claim rewards, unstake, and withdraw their remote restaking records. If there are any unapplied slashes we apply them on transaction or rely on keepers to execute to optimize data transmission. Rewards are claimable on Tangle or dispatchable back to the remote chain in a similar manner.
+
+‍
+
+Benefits of cross chain restaking
+
+Key Benefits
+
+Increased Capital Efficiency
+
+Interoperability
+
+Challenges
+
+Smart Contract Risks
+
+Slashing Risks
+
+Complexity for Users
+
+Liquidity Constraints
+
+‍
+
+Examples of Cross-Chain Restaking Projects
+
+Nuffle on Eigenlayer
+
+Omni on Symbiotic
+
+Tangle w/ Router Protocol, Glacis, Hyperlane
