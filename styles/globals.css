@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
   --font-sans: "Geist", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "Geist Mono", ui-monospace, monospace;
@@ -23,6 +25,7 @@ html {
   --tw-prose-links: var(--color-brand);
   --tw-prose-code: var(--color-neutral-800);
   --tw-prose-pre-bg: transparent;
+  color: var(--tw-prose-body);
   line-height: 1.8;
   font-size: 1.0625rem;
 }
@@ -41,6 +44,7 @@ html {
   margin-bottom: 1rem;
   letter-spacing: -0.025em;
   scroll-margin-top: 5rem;
+  color: var(--tw-prose-headings);
 }
 
 .prose h3 {
@@ -50,6 +54,7 @@ html {
   margin-bottom: 0.75rem;
   letter-spacing: -0.02em;
   scroll-margin-top: 5rem;
+  color: var(--tw-prose-headings);
 }
 
 .prose p {
@@ -58,6 +63,7 @@ html {
 }
 
 .prose a {
+  color: var(--tw-prose-links);
   text-decoration: underline;
   text-underline-offset: 3px;
   text-decoration-color: var(--color-brand);
@@ -98,6 +104,7 @@ html {
   font-weight: 500;
   padding: 0.2em 0.4em;
   border-radius: 0.375rem;
+  color: var(--tw-prose-code);
   background-color: var(--color-neutral-100);
   border: 1px solid var(--color-neutral-200);
 }
@@ -124,6 +131,11 @@ html {
 .prose figure[data-rehype-pretty-code-figure] {
   margin: 0 0 1.5rem 0;
   position: relative;
+}
+
+/* Shiki multi-theme: switch token colors in dark mode */
+.dark figure[data-rehype-pretty-code-figure] code span {
+  color: var(--shiki-dark) !important;
 }
 
 /* Code block container */

@@ -10,8 +10,8 @@ import { CodeBlockWrapper } from "@/components/mdx/code-block";
 
 const prettyCodeOptions: Options = {
   theme: {
-    dark: "github-dark",
     light: "github-light",
+    dark: "github-dark",
   },
   keepBackground: true,
   defaultLang: "plaintext",
