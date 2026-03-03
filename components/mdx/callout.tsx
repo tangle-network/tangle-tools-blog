@@ -9,31 +9,31 @@ const calloutConfig: Record<
 > = {
   info: {
     icon: Info,
-    bg: "bg-blue-50 dark:bg-blue-950/30",
-    border: "border-blue-200 dark:border-blue-900",
-    text: "text-blue-900 dark:text-blue-200",
-    iconColor: "text-blue-500",
+    bg: "bg-[color:var(--color-brand-soft)]/55 dark:bg-[color:var(--bg-subtle)]/85",
+    border: "border-[color:var(--color-brand)]/35 dark:border-[color:var(--border-strong)]",
+    text: "text-[color:var(--text-body)] dark:text-[color:var(--text-body)]",
+    iconColor: "text-[color:var(--color-brand)]",
   },
   warning: {
     icon: AlertTriangle,
-    bg: "bg-amber-50 dark:bg-amber-950/30",
-    border: "border-amber-200 dark:border-amber-900",
-    text: "text-amber-900 dark:text-amber-200",
-    iconColor: "text-amber-500",
+    bg: "bg-amber-100/80 dark:bg-amber-950/25",
+    border: "border-amber-300 dark:border-amber-900",
+    text: "text-amber-950 dark:text-amber-200",
+    iconColor: "text-amber-600 dark:text-amber-400",
   },
   tip: {
     icon: Lightbulb,
-    bg: "bg-emerald-50 dark:bg-emerald-950/30",
-    border: "border-emerald-200 dark:border-emerald-900",
-    text: "text-emerald-900 dark:text-emerald-200",
-    iconColor: "text-emerald-500",
+    bg: "bg-emerald-100/70 dark:bg-emerald-950/25",
+    border: "border-emerald-300 dark:border-emerald-900",
+    text: "text-emerald-950 dark:text-emerald-200",
+    iconColor: "text-emerald-600 dark:text-emerald-400",
   },
   danger: {
     icon: AlertCircle,
-    bg: "bg-red-50 dark:bg-red-950/30",
-    border: "border-red-200 dark:border-red-900",
-    text: "text-red-900 dark:text-red-200",
-    iconColor: "text-red-500",
+    bg: "bg-red-100/75 dark:bg-red-950/25",
+    border: "border-red-300 dark:border-red-900",
+    text: "text-red-950 dark:text-red-200",
+    iconColor: "text-red-600 dark:text-red-400",
   },
 };
 
@@ -50,7 +50,7 @@ export function Callout({ type = "info", title, children }: CalloutProps) {
   return (
     <div
       className={cn(
-        "my-6 rounded-lg border p-4",
+        "my-7 rounded-xl border p-4 shadow-[var(--shadow-soft)]",
         config.bg,
         config.border
       )}

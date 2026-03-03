@@ -64,11 +64,13 @@ export default async function PostPage({ params }: PageProps) {
 
   return (
     <article className="mx-auto max-w-5xl px-6 py-12">
-      <div className="lg:grid lg:grid-cols-[1fr_220px] lg:gap-10">
+      <div className="lg:grid lg:grid-cols-[minmax(0,1fr)_240px] lg:gap-10">
         <div className="min-w-0">
           <PostHeader frontmatter={frontmatter} readingTime={readingTime} />
-          <div className="prose max-w-none">{mdxContent}</div>
-          <div className="mt-10 flex items-center justify-between border-t border-neutral-200 pt-6 dark:border-neutral-800">
+          <div className="surface-card rounded-2xl p-6 sm:p-8">
+            <div className="prose max-w-none">{mdxContent}</div>
+          </div>
+          <div className="mt-8 flex items-center justify-between border-t border-[color:var(--border-subtle)] pt-6">
             <ShareButtons title={frontmatter.title} slug={frontmatter.slug} />
           </div>
           <PostFooter

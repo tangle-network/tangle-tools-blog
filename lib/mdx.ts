@@ -7,11 +7,13 @@ import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
 import { Callout } from "@/components/mdx/callout";
 import { CodeBlockWrapper } from "@/components/mdx/code-block";
+import { MdxImage, MdxVideo, MdxIframe } from "@/components/mdx/media";
+import { MdxLink } from "@/components/mdx/link";
 
 const prettyCodeOptions: Options = {
   theme: {
-    light: "github-light",
-    dark: "github-dark",
+    light: "catppuccin-latte",
+    dark: "catppuccin-mocha",
   },
   keepBackground: true,
   defaultLang: "plaintext",
@@ -19,6 +21,10 @@ const prettyCodeOptions: Options = {
 
 const components = {
   Callout,
+  a: MdxLink,
+  img: MdxImage,
+  video: MdxVideo,
+  iframe: MdxIframe,
   pre: CodeBlockWrapper,
 };
 
@@ -51,7 +57,7 @@ export async function renderMDX(source: string) {
 export function extractHeadings(
   content: string
 ): { id: string; text: string; level: number }[] {
-  const headingRegex = /^(#{2,3})\s+(.+)$/gm;
+  const headingRegex = /^(#{2,4})\s+(.+)$/gm;
   const headings: { id: string; text: string; level: number }[] = [];
   let match;
 

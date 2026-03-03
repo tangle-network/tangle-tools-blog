@@ -23,7 +23,7 @@ export function TableOfContents({ headings }: { headings: TocItem[] }) {
           }
         }
       },
-      { rootMargin: "-80px 0px -80% 0px" }
+      { rootMargin: "-80px 0px -78% 0px" }
     );
 
     headings.forEach(({ id }) => {
@@ -38,11 +38,10 @@ export function TableOfContents({ headings }: { headings: TocItem[] }) {
 
   return (
     <>
-      {/* Mobile TOC */}
       <div className="mb-6 lg:hidden">
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="flex w-full items-center gap-2 rounded-lg border border-neutral-200 bg-neutral-50 px-4 py-2.5 text-sm font-medium text-neutral-700 dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-300"
+          className="surface-subtle flex w-full items-center gap-2 rounded-lg px-4 py-2.5 text-sm font-medium text-[color:var(--text-body)]"
         >
           <List className="h-4 w-4" />
           On this page
@@ -55,8 +54,9 @@ export function TableOfContents({ headings }: { headings: TocItem[] }) {
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
           </svg>
         </button>
+
         {isOpen && (
-          <nav className="mt-2 rounded-lg border border-neutral-200 bg-neutral-50 p-4 dark:border-neutral-800 dark:bg-neutral-900">
+          <nav className="surface-subtle mt-2 rounded-lg p-4">
             <ul className="space-y-2">
               {headings.map((heading) => (
                 <li key={heading.id}>
@@ -64,11 +64,12 @@ export function TableOfContents({ headings }: { headings: TocItem[] }) {
                     href={`#${heading.id}`}
                     onClick={() => setIsOpen(false)}
                     className={cn(
-                      "block text-sm transition-colors hover:text-brand",
+                      "block text-sm transition-colors hover:text-[color:var(--color-brand)]",
                       heading.level === 3 && "pl-4",
+                      heading.level === 4 && "pl-6",
                       activeId === heading.id
-                        ? "font-medium text-brand"
-                        : "text-neutral-600 dark:text-neutral-400"
+                        ? "font-medium text-[color:var(--color-brand-strong)]"
+                        : "text-[color:var(--text-muted)]"
                     )}
                   >
                     {heading.text}
@@ -80,24 +81,24 @@ export function TableOfContents({ headings }: { headings: TocItem[] }) {
         )}
       </div>
 
-      {/* Desktop TOC - sticky sidebar */}
       <aside className="hidden lg:block">
-        <div className="sticky top-20">
-          <p className="mb-3 text-xs font-semibold uppercase tracking-wider text-neutral-500 dark:text-neutral-400">
+        <div className="sticky top-24 rounded-xl border border-[color:var(--border-subtle)] bg-[color:var(--bg-card)] p-4 shadow-[var(--shadow-soft)]">
+          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.12em] text-[color:var(--text-muted)]">
             On this page
           </p>
           <nav>
-            <ul className="space-y-1.5 border-l border-neutral-200 dark:border-neutral-800">
+            <ul className="space-y-1.5 border-l border-[color:var(--border-subtle)]">
               {headings.map((heading) => (
                 <li key={heading.id}>
                   <a
                     href={`#${heading.id}`}
                     className={cn(
                       "toc-link -ml-px block border-l-2 py-1 text-[13px] leading-snug transition-all",
-                      heading.level === 3 ? "pl-6" : "pl-4",
+                      heading.level === 3 ? "pl-5" : "pl-4",
+                      heading.level === 4 ? "pl-7" : "",
                       activeId === heading.id
-                        ? "active border-brand text-brand font-medium"
-                        : "border-transparent text-neutral-500 hover:border-neutral-400 hover:text-neutral-700 dark:text-neutral-400 dark:hover:border-neutral-500 dark:hover:text-neutral-300"
+                        ? "active border-[color:var(--color-brand)] text-[color:var(--color-brand-strong)]"
+                        : "border-transparent text-[color:var(--text-muted)] hover:border-[color:var(--border-strong)] hover:text-[color:var(--text-strong)]"
                     )}
                   >
                     {heading.text}
