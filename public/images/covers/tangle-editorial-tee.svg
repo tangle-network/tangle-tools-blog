@@ -1,0 +1,36 @@
+<svg width="1600" height="900" viewBox="0 0 1600 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="180" y1="30" x2="1460" y2="900" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#160A2D"/>
+      <stop offset="1" stop-color="#281148"/>
+    </linearGradient>
+    <radialGradient id="glowA" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(290 140) rotate(31) scale(620 510)">
+      <stop stop-color="#B991FF" stop-opacity="0.58"/>
+      <stop offset="1" stop-color="#B991FF" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glowB" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(1380 40) rotate(120) scale(540 470)">
+      <stop stop-color="#7C3AED" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#7C3AED" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <rect width="1600" height="900" fill="url(#glowA)"/>
+  <rect width="1600" height="900" fill="url(#glowB)"/>
+
+  <g opacity="0.5">
+    <rect x="116" y="124" width="1368" height="652" rx="30" stroke="#C7A3FF" stroke-opacity="0.35"/>
+    <rect x="156" y="164" width="1288" height="572" rx="24" stroke="#C7A3FF" stroke-opacity="0.2"/>
+  </g>
+
+  <g>
+    <path d="M800 238L540 368L800 498L1060 368L800 238Z" stroke="#CBA9FF" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M540 632L800 762L1060 632" stroke="#CBA9FF" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M540 500L800 630L1060 500" stroke="#B683FF" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <g opacity="0.9">
+    <rect x="186" y="686" width="374" height="72" rx="36" fill="#2C1D49" fill-opacity="0.8" stroke="#C7A3FF" stroke-opacity="0.42"/>
+    <text x="232" y="732" fill="#E9DBFF" font-family="Space Grotesk, Inter, sans-serif" font-size="30" font-weight="600" letter-spacing="0.12em">TANGLE EDITORIAL</text>
+  </g>
+</svg>

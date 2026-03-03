@@ -1,6 +1,8 @@
 import { formatDate } from "@/lib/utils";
 import { Calendar, Clock3, User } from "lucide-react";
 import type { PostFrontmatter } from "@/lib/posts";
+import { PostImage } from "@/components/post-image";
+import { resolveFrontmatterImage, resolveFrontmatterImageAlt } from "@/lib/post-images";
 
 interface PostHeaderProps {
   frontmatter: PostFrontmatter;
@@ -8,6 +10,9 @@ interface PostHeaderProps {
 }
 
 export function PostHeader({ frontmatter, readingTime }: PostHeaderProps) {
+  const heroImage = resolveFrontmatterImage(frontmatter);
+  const heroAlt = resolveFrontmatterImageAlt(frontmatter) ?? frontmatter.title;
+
   return (
     <header className="mb-12 rounded-2xl border border-[color:var(--border-subtle)] bg-[color:var(--bg-card)] px-6 py-7 shadow-[var(--shadow-soft)] sm:px-8">
       {frontmatter.series && (
@@ -60,6 +65,20 @@ export function PostHeader({ frontmatter, readingTime }: PostHeaderProps) {
           </span>
         ))}
       </div>
+
+      {heroImage && (
+        <div className="mt-7">
+          <div className="aspect-[16/9] sm:aspect-[2/1]">
+            <PostImage
+              alt={heroAlt}
+              className="rounded-xl"
+              priority
+              sizes="(min-width: 1024px) 860px, 100vw"
+              src={heroImage}
+            />
+          </div>
+        </div>
+      )}
     </header>
   );
 }
