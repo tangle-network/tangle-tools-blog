@@ -1,6 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
 import Image from "next/image";
-import { Layers3 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { isExternalImage } from "@/lib/post-images";
 
@@ -21,14 +20,16 @@ function FallbackVisual({ label }: { label: string }) {
         className="absolute inset-0"
         style={{
           background:
-            "radial-gradient(circle at 14% 12%, color-mix(in srgb, var(--color-brand-glow) 34%, transparent), transparent 52%), radial-gradient(circle at 88% 0%, color-mix(in srgb, var(--color-brand) 25%, transparent), transparent 48%), linear-gradient(165deg, color-mix(in srgb, var(--bg-elevated) 70%, var(--color-brand-soft)), var(--bg-card))",
+            "radial-gradient(circle at 14% 10%, color-mix(in srgb, var(--color-brand) 32%, transparent), transparent 54%), radial-gradient(circle at 94% 2%, color-mix(in srgb, var(--color-brand-cool) 28%, transparent), transparent 46%), linear-gradient(165deg, color-mix(in srgb, var(--bg-elevated) 72%, var(--color-brand-soft)), var(--bg-card))",
         }}
       />
       <div className="relative flex h-full items-end justify-between p-4">
-        <span className="rounded-full border border-[color:var(--border-strong)]/70 bg-[color:var(--bg-card)]/80 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-[color:var(--text-muted)] backdrop-blur">
+        <span className="rounded-full border border-[color:var(--border-strong)]/70 bg-[color:var(--bg-card)]/86 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-[color:var(--text-muted)] backdrop-blur">
           {label}
         </span>
-        <Layers3 className="h-5 w-5 text-[color:var(--color-brand-strong)]" />
+        <span className="relative h-7 w-7 overflow-hidden rounded-full border border-[color:var(--border-strong)]/80 bg-[color:var(--bg-card)]/80">
+          <Image src="/brand/tangle-icon-filled.svg" alt="" fill sizes="28px" className="object-cover" />
+        </span>
       </div>
     </div>
   );
@@ -67,7 +68,7 @@ export function PostImage({
               sizes={sizes}
             />
           )}
-          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/14 via-transparent to-transparent" />
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/18 via-black/0 to-transparent" />
         </>
       ) : (
         <FallbackVisual label={label} />

@@ -3,6 +3,7 @@ import { Calendar, Clock3, User } from "lucide-react";
 import type { PostFrontmatter } from "@/lib/posts";
 import { PostImage } from "@/components/post-image";
 import { resolveFrontmatterImage, resolveFrontmatterImageAlt } from "@/lib/post-images";
+import { BrandLogo } from "@/components/brand-logo";
 
 interface PostHeaderProps {
   frontmatter: PostFrontmatter;
@@ -14,9 +15,16 @@ export function PostHeader({ frontmatter, readingTime }: PostHeaderProps) {
   const heroAlt = resolveFrontmatterImageAlt(frontmatter) ?? frontmatter.title;
 
   return (
-    <header className="mb-12 rounded-2xl border border-[color:var(--border-subtle)] bg-[color:var(--bg-card)] px-6 py-7 shadow-[var(--shadow-soft)] sm:px-8">
+    <header className="mb-10 rounded-3xl border border-[color:var(--border-subtle)] bg-[color:var(--bg-card)] px-6 py-7 shadow-[var(--shadow-soft)] sm:px-8 sm:py-8">
+      <div className="mb-6 flex flex-wrap items-center justify-between gap-4 border-b border-[color:var(--border-subtle)] pb-5">
+        <BrandLogo className="max-w-full" showBlogLabel={false} />
+        <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[color:var(--text-muted)]">
+          Published article
+        </p>
+      </div>
+
       {frontmatter.series && (
-        <div className="mb-4 flex items-center gap-2">
+        <div className="mb-4 flex flex-wrap items-center gap-2">
           <span className="rounded-full border border-[color:var(--color-brand)]/30 bg-[color:var(--color-brand-soft)] px-3 py-1 text-xs font-semibold tracking-wide text-[color:var(--color-brand-strong)]">
             {frontmatter.series}
           </span>
@@ -26,7 +34,7 @@ export function PostHeader({ frontmatter, readingTime }: PostHeaderProps) {
         </div>
       )}
 
-      <h1 className="mb-4 text-3xl font-semibold tracking-tight text-[color:var(--text-strong)] sm:text-[2.55rem]">
+      <h1 className="mb-4 text-3xl font-semibold tracking-tight text-[color:var(--text-strong)] sm:text-[2.7rem]">
         {frontmatter.title}
       </h1>
 
@@ -68,10 +76,10 @@ export function PostHeader({ frontmatter, readingTime }: PostHeaderProps) {
 
       {heroImage && (
         <div className="mt-7">
-          <div className="aspect-[16/9] sm:aspect-[2/1]">
+          <div className="aspect-[16/9] sm:aspect-[2.2/1]">
             <PostImage
               alt={heroAlt}
-              className="rounded-xl"
+              className="rounded-2xl border border-[color:var(--border-subtle)]"
               priority
               sizes="(min-width: 1024px) 860px, 100vw"
               src={heroImage}

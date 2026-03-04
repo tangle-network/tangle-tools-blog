@@ -7,7 +7,7 @@ import "katex/dist/katex.min.css";
 
 export const metadata: Metadata = {
   title: {
-    default: "Tangle Blog",
+    default: "Tangle Technical Editorial",
     template: "%s | Tangle Blog",
   },
   description:
@@ -21,6 +21,11 @@ export const metadata: Metadata = {
     "blueprints",
   ],
   metadataBase: new URL("https://tangle.tools"),
+  icons: {
+    icon: [{ url: "/favicon.svg", type: "image/svg+xml" }],
+    shortcut: ["/favicon.svg"],
+    apple: [{ url: "/favicon.svg" }],
+  },
   alternates: {
     canonical: "/post",
     types: {
@@ -32,7 +37,7 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: "/post",
     siteName: "Tangle Blog",
-    title: "Tangle Blog",
+    title: "Tangle Technical Editorial",
     description:
       "Technical deep-dives into decentralized infrastructure, blueprints, TEE, verification, and building on-chain services.",
     images: [
@@ -46,7 +51,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Tangle Blog",
+    title: "Tangle Technical Editorial",
     description:
       "Technical deep-dives into decentralized infrastructure, blueprints, TEE, verification, and building on-chain services.",
     images: ["/og"],
