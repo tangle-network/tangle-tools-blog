@@ -11,8 +11,17 @@ interface Env {
 }
 
 const DEFAULT_BLOG_ORIGIN = "https://blog-origin.tangle.tools";
-const BLOG_PATH_PREFIXES = ["/post/", "/images/", "/og/"];
-const BLOG_EXACT_PATHS = new Set(["/post", "/images", "/og", "/feed.xml", "/sitemap.xml"]);
+const BLOG_PATH_PREFIXES = ["/post/", "/images/", "/og/", "/_next/"];
+const BLOG_EXACT_PATHS = new Set([
+  "/post",
+  "/images",
+  "/og",
+  "/_next",
+  "/feed.xml",
+  "/sitemap.xml",
+  "/robots.txt",
+  "/favicon.ico",
+]);
 
 function isBlogPath(pathname: string): boolean {
   return (
