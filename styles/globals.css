@@ -282,7 +282,8 @@ body {
 }
 
 .prose li::marker {
-  color: var(--prose-marker);
+  color: color-mix(in srgb, var(--color-brand-strong) 78%, var(--text-body));
+  font-weight: 700;
 }
 
 .prose :not(pre) > code {
