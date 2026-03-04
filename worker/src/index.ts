@@ -11,12 +11,13 @@ interface Env {
 }
 
 const DEFAULT_BLOG_ORIGIN = "https://blog-origin.tangle.tools";
-const BLOG_PATH_PREFIXES = ["/post/", "/images/", "/og/", "/_next/"];
+const BLOG_PATH_PREFIXES = ["/post/", "/images/", "/og/", "/_next/", "/brand/"];
 const BLOG_EXACT_PATHS = new Set([
   "/post",
   "/images",
   "/og",
   "/_next",
+  "/brand",
   "/feed.xml",
   "/sitemap.xml",
   "/robots.txt",
