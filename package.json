@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test": "npm run lint && npm run build"
+    "test": "npm run lint && npm run build",
+    "audit:images": "node scripts/audit-images.js"
   },
   "dependencies": {
     "next": "^15.3.1",

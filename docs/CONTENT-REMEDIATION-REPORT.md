@@ -78,3 +78,21 @@ Repo: `/home/drew/code/tangle-tools-blog`
 - `what-is-cross-chain-restaking.svg`
 - `why-ai-infrastructure-needs-decentralization.svg`
 - `why-restake-with-tangle.svg`
+
+## Image Reliability Audit (2026-03-03)
+
+- Script: `scripts/audit-images.js`
+- Command: `npm run audit:images`
+- Total posts checked: `21`
+- Missing refs before fixes: `0`
+- Missing refs after fixes: `0`
+
+Proof output:
+
+```text
+Image audit summary
+- Posts checked: 21
+- Files missing required frontmatter fields: 0
+- Invalid image refs: 0
+- Missing image files: 0
+```
