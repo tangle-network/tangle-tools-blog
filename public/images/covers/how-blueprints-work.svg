@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1600" height="900" viewBox="0 0 1600 900" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">How Blueprints Work</title>
+  <desc id="desc">Branded Tangle blog cover artwork</desc>
+  <defs>
+    <linearGradient id="bg" x1="70" y1="40" x2="1500" y2="860" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#120f1f"/>
+      <stop offset="0.55" stop-color="#304670"/>
+      <stop offset="1" stop-color="#7dd3fc"/>
+    </linearGradient>
+    <radialGradient id="glowA" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(1320 140) rotate(90) scale(270 380)">
+      <stop stop-color="#9BE8FF" stop-opacity="0.25"/>
+      <stop offset="1" stop-color="#9BE8FF" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glowB" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(220 760) rotate(90) scale(280 460)">
+      <stop stop-color="#6BA5FF" stop-opacity="0.18"/>
+      <stop offset="1" stop-color="#6BA5FF" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="grid" width="44" height="44" patternUnits="userSpaceOnUse">
+      <path d="M44 0H0V44" fill="none" stroke="#B8DCFF" stroke-opacity="0.11"/>
+    </pattern>
+  </defs>
+
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <rect width="1600" height="900" fill="url(#grid)"/>
+  <rect width="1600" height="900" fill="url(#glowA)"/>
+  <rect width="1600" height="900" fill="url(#glowB)"/>
+
+  <g opacity="0.9">
+    <circle cx="1275" cy="240" r="92" fill="none" stroke="#D8EEFF" stroke-opacity="0.35" stroke-width="2"/>
+    <circle cx="1275" cy="240" r="58" fill="none" stroke="#D8EEFF" stroke-opacity="0.55" stroke-width="2"/>
+    <path d="M1222 240L1328 240M1275 187L1275 293" stroke="#D8EEFF" stroke-opacity="0.55" stroke-width="2"/>
+  </g>
+
+  <path d="M0 715C260 645 390 830 665 760C910 698 1012 562 1300 620C1406 642 1514 706 1600 760V900H0V715Z" fill="#061223" fill-opacity="0.42"/>
+
+  <text x="120" y="170" fill="#CDE8FF" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="26" font-weight="700" letter-spacing="4">TANGLE BLOG</text>
+  <text x="120" y="220" fill="#88B7DF" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="22" font-weight="500" letter-spacing="1.2">Decentralized Infrastructure</text>
+    <text x="120" y="430" fill="#ecf6ff" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="58" font-weight="700" letter-spacing="0.2">How Blueprints Work</text>
+
+  <g opacity="0.85">
+    <circle cx="120" cy="790" r="10" fill="#9FD3FF"/>
+    <circle cx="164" cy="790" r="10" fill="#9FD3FF" fill-opacity="0.8"/>
+    <circle cx="208" cy="790" r="10" fill="#9FD3FF" fill-opacity="0.6"/>
+    <path d="M238 790H430" stroke="#9FD3FF" stroke-opacity="0.58" stroke-width="3" stroke-linecap="round"/>
+  </g>
+
+  <text x="120" y="842" fill="#7FAAD0" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="20" letter-spacing="0.6">how-blueprints-work</text>
+</svg>

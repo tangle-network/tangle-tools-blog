@@ -7,10 +7,114 @@ author: "Drew Stone"
 tags: ["blueprints", "architecture", "sdk"]
 series: "Tangle Re-Introduction"
 seriesOrder: 2
+coverImage: "/images/covers/how-blueprints-work.svg"
+heroImage: "/images/covers/how-blueprints-work.svg"
+imageAlt: "Branded Tangle cover showing modular blueprint blocks connected as service infrastructure"
 ---
 
-Blueprints are the unit of deployable infrastructure on Tangle. This post explains their architecture, lifecycle, and how operators run them.
+A Blueprint is the deployable unit of infrastructure on Tangle. It is how developers package service logic so independent operators can run it under shared rules, verification, and rewards.
 
-<Callout type="info" title="Content migration in progress">
-This post is being migrated from Webflow. The full article will be available shortly.
-</Callout>
+If Tangle is the coordination layer, Blueprints are the workload definition.
+
+## What a Blueprint contains
+
+A production Blueprint usually contains four parts:
+
+1. Service interface: The job types, inputs, outputs, and constraints.
+2. Runtime logic: The executable logic operators run to process jobs.
+3. Verification policy: The mechanism that determines whether work is accepted.
+4. Economic policy: Pricing, staking exposure, and reward/slashing hooks.
+
+This separation is intentional. It allows the same service logic to run across many operators without duplicating governance or settlement logic.
+
+## The Blueprint lifecycle
+
+Blueprints move through a predictable lifecycle:
+
+1. Authoring: A developer defines interfaces, handlers, and verification rules in code.
+2. Registration: The Blueprint is published so operators can discover and opt in.
+3. Operator onboarding: Operators deploy the runtime and satisfy required capabilities.
+4. Instance creation: A customer creates a service instance with selected operators/policies.
+5. Execution: Jobs are submitted, routed, executed, and verified.
+6. Settlement: Rewards and penalties are applied from observed outcomes.
+7. Upgrade: New versions are introduced with compatibility and migration controls.
+
+This gives teams a clear path from prototype to durable service.
+
+## Operator model
+
+Operators are independent participants running Blueprint runtimes. They are not passive relayers. They are accountable service providers.
+
+A well-designed Blueprint defines operator requirements explicitly:
+
+- CPU/GPU or memory requirements.
+- Optional TEE requirements.
+- Network dependencies.
+- Maximum acceptable latency.
+- Determinism expectations.
+
+Operators who cannot satisfy requirements should not be admitted to that instance. Clear admission criteria reduce downstream incidents.
+
+## Job flow: from request to result
+
+At runtime, job execution follows a common pattern:
+
+1. A client submits a job with structured input.
+2. The instance routing layer chooses an eligible operator set.
+3. Operators run the handler with the declared runtime configuration.
+4. Evidence is emitted (logs, attestations, hashes, optional proofs).
+5. Verification policy evaluates evidence against service rules.
+6. Accepted work is finalized and made available to the client.
+
+This matters because it decouples throughput concerns from trust concerns. You can optimize execution without weakening verification.
+
+## Discrete tasks and continuous services
+
+Blueprints can combine two execution styles:
+
+- Discrete task handlers for one-off jobs (for example: sign, infer, transform, prove).
+- Continuous services for long-running processes (for example: watchers, schedulers, stream processors).
+
+In practice, production systems use both. A continuous indexer may feed state into a discrete inference job. A scheduler can coordinate retries and health checks.
+
+## Versioning and compatibility
+
+Most blueprint incidents are upgrade incidents. Good versioning policy is not optional.
+
+Recommended practice:
+
+- Keep interfaces backward compatible when possible.
+- Version schemas and handlers together.
+- Roll out to canary operators first.
+- Pin model/runtime versions for deterministic behavior.
+- Provide explicit rollback procedures.
+
+A Blueprint is infrastructure. Treat release management accordingly.
+
+## Security model in practice
+
+Blueprint security should layer controls:
+
+- Input validation to block malformed or adversarial payloads.
+- Resource caps to prevent memory or compute exhaustion.
+- Least-privilege runtime permissions.
+- Signed artifacts and immutable build references.
+- Optional attestation for confidential execution.
+
+Security failures in decentralized systems are usually operational, not theoretical. Tight defaults reduce blast radius.
+
+## Why this architecture scales
+
+Blueprints scale because they align incentives and responsibilities:
+
+- Developers publish reusable service logic.
+- Operators compete on execution quality.
+- Users choose policies and providers based on requirements.
+
+No single actor has to own every layer. That is the advantage.
+
+## Closing
+
+Blueprints are how Tangle turns open-source service code into live, monetizable infrastructure. They standardize deployment, verification, and incentives while preserving operator competition.
+
+Next, we will go deeper into the trust boundary: **how Tangle verifies work**, from optimistic checks to proof-based validation.

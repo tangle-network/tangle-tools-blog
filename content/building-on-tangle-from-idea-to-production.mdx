@@ -1,16 +1,154 @@
 ---
 title: "Building on Tangle: From Idea to Production"
 slug: building-on-tangle-from-idea-to-production
-summary: "A practical walkthrough of taking a blueprint from concept to deployment — tooling, testing, and the developer experience."
+summary: "A practical walkthrough of taking a blueprint from concept to deployment - tooling, testing, and the developer experience."
 date: "2026-02-22"
 author: "Drew Stone"
 tags: ["tutorial", "sdk", "developer-experience"]
 series: "Tangle Re-Introduction"
 seriesOrder: 4
+coverImage: "/images/covers/building-on-tangle-from-idea-to-production.svg"
+heroImage: "/images/covers/building-on-tangle-from-idea-to-production.svg"
+imageAlt: "Branded Tangle cover showing roadmap milestones from concept to production deployment"
 ---
 
-A practical walkthrough of taking a blueprint from concept to deployment — covering tooling, testing, and the developer experience on Tangle.
+Most infrastructure projects fail between demo and production. The code works locally, but reliability, security, and operations are under-specified.
 
-<Callout type="info" title="Content migration in progress">
-This post is being migrated from Webflow. The full article will be available shortly.
-</Callout>
+This guide covers a practical path for shipping a Tangle Blueprint from idea to production.
+
+## Stage 1: define the service contract
+
+Start by writing a clear service contract before implementation.
+
+At minimum define:
+
+- job types and schemas,
+- expected latency and throughput,
+- failure semantics (retry, timeout, partial success),
+- verification mode,
+- and pricing model.
+
+If these are vague, your runtime and economic policy will drift.
+
+## Stage 2: scaffold and isolate core logic
+
+Create your blueprint project and isolate business logic from integration code early.
+
+Recommended structure:
+
+- `domain/` for pure service logic,
+- `handlers/` for request adapters,
+- `runtime/` for operator-specific execution details,
+- `verification/` for evidence generation and checking,
+- `config/` for environment and policy bindings.
+
+This makes testing and upgrades significantly easier.
+
+## Stage 3: local deterministic test harness
+
+Before any shared environment, build a deterministic local harness.
+
+Your harness should allow you to:
+
+- replay fixed inputs,
+- compare outputs across versions,
+- inject fault scenarios,
+- and validate metrics emission.
+
+Deterministic local testing catches most integration defects cheaply.
+
+## Stage 4: testnet with production-like constraints
+
+Treat testnet as an operational rehearsal, not a feature sandbox.
+
+Configure realistic:
+
+- resource limits,
+- concurrency caps,
+- queue depth,
+- and challenge windows.
+
+If testnet has infinite resources and permissive timeouts, production behavior will surprise you.
+
+## Stage 5: verification and dispute drills
+
+Run intentional failure drills before launch:
+
+1. Submit malformed inputs.
+2. Force timeout and partial completion conditions.
+3. Simulate operator disagreement.
+4. Trigger challenge and dispute paths.
+5. Confirm settlement outcomes and slash rules.
+
+If dispute workflows are untested, you are not production ready.
+
+## Stage 6: release management
+
+Blueprint releases should follow a strict lifecycle:
+
+1. Tag immutable build artifacts.
+2. Roll out to a canary operator set.
+3. Compare SLOs and error distribution.
+4. Expand rollout gradually.
+5. Keep rollback paths tested and documented.
+
+Never perform simultaneous runtime and policy migrations unless required.
+
+## Stage 7: observability baseline
+
+Production requires more than logs. You need service-level visibility.
+
+Track at least:
+
+- job success rate by handler version,
+- p50/p95/p99 latency,
+- verification pass/fail ratios,
+- dispute rate and resolution time,
+- operator availability,
+- reward-to-failure ratio.
+
+Alerting should map to user impact, not only infrastructure metrics.
+
+## Stage 8: security hardening
+
+Before mainnet-level traffic, complete a hardening pass:
+
+- strict input validation and schema enforcement,
+- dependency review and pinned artifact versions,
+- least-privilege runtime permissions,
+- secret handling with rotation policies,
+- and abuse controls for high-cost routes.
+
+Most incidents are not cryptographic breaks. They are operational oversights.
+
+## Stage 9: customer readiness
+
+Even infrastructure products need strong developer experience.
+
+Provide:
+
+- stable API examples,
+- explicit error codes,
+- versioned integration guides,
+- and clear limits/SLO documentation.
+
+Adoption depends on predictability.
+
+## Production checklist
+
+Use this short gate before full rollout:
+
+- Contract and verification policy are versioned.
+- Testnet load profile matches expected production envelope.
+- Challenge and dispute drills passed.
+- Canary rollout and rollback tested.
+- Alerting and on-call runbooks exist.
+- Security review and dependency lock completed.
+
+If any item is missing, delay release.
+
+## Closing
+
+Building on Tangle is straightforward when architecture and operations are designed together. Blueprints let you package service logic once, then deploy with shared verification and incentive mechanics.
+
+In the next post, we apply this workflow to a concrete use case: **building AI services on Tangle** with inference and sandboxed execution.

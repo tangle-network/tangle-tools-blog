@@ -1,18 +1,148 @@
 ---
 title: "Building AI Services on Tangle"
 slug: building-ai-services-on-tangle
-summary: "How to build AI inference and sandboxed execution services using Tangle's Blueprint SDK — from model loading to job routing."
+summary: "How to build AI inference and sandboxed execution services using Tangle's Blueprint SDK - from model loading to job routing."
 date: "2026-02-26"
 author: "Drew Stone"
 tags: ["ai", "inference", "sdk"]
 series: "Tangle Re-Introduction"
 seriesOrder: 5
-coverImage: "/images/covers/tangle-editorial-tee.svg"
-imageAlt: "Tangle editorial cover with purple gradients and layered chain icon"
+coverImage: "/images/covers/building-ai-services-on-tangle.svg"
+heroImage: "/images/covers/building-ai-services-on-tangle.svg"
+imageAlt: "Branded Tangle cover illustrating AI inference pipelines and secure sandbox execution"
 ---
 
-How to build AI inference and sandboxed execution services using Tangle's Blueprint SDK — from model loading to job routing.
+AI services are a natural fit for Blueprints: they are compute-heavy, policy-sensitive, and benefit from independent operator supply.
 
-<Callout type="info" title="Content migration in progress">
-This post is being migrated from Webflow. The full article will be available shortly.
-</Callout>
+This post walks through a production-minded architecture for inference and sandboxed tool execution on Tangle.
+
+## Service architecture
+
+A robust AI Blueprint usually has three execution roles:
+
+1. Router: validates requests, applies policy, and selects an operator path.
+2. Inference worker: loads model artifacts and runs generation/classification tasks.
+3. Sandbox worker: executes constrained tools or code with strict resource limits.
+
+Separating these roles avoids over-privileging a single runtime and improves fault isolation.
+
+## Job schema design
+
+Define schemas explicitly. Avoid generic "prompt-only" payloads for production services.
+
+Recommended request shape:
+
+- `task_type` (chat, classify, embed, tool_call)
+- `model_id` and optional `model_version`
+- `input` payload with strict size limits
+- `safety_profile` (baseline, strict, custom)
+- `deadline_ms`
+- `trace_id`
+
+A good schema improves routing, observability, and dispute handling.
+
+## Model packaging and reproducibility
+
+Treat models as versioned artifacts, not mutable runtime state.
+
+Use a reproducible pipeline:
+
+1. Build and hash model artifact.
+2. Store immutable reference.
+3. Pin runtime dependencies.
+4. Emit artifact hash in job evidence.
+
+Without this, two operators can run "the same" model and still produce incompatible behavior.
+
+## Inference path
+
+A typical inference request flow:
+
+1. Client submits request to the Blueprint instance.
+2. Router validates schema and quota.
+3. Eligible operator is selected based on policy and capacity.
+4. Worker executes inference under declared limits.
+5. Output plus evidence is returned for verification.
+6. Settlement finalizes rewards or penalties.
+
+The key is predictable boundaries: validated input, pinned model, bounded execution.
+
+## Sandboxed tool execution
+
+Tool use is where many AI systems become unsafe. Keep sandboxes explicit and narrow.
+
+Baseline controls:
+
+- network egress policy by allowlist,
+- filesystem isolation,
+- process time and memory caps,
+- deterministic tool interface contracts,
+- and structured output validation.
+
+If a tool route can execute arbitrary code without hard limits, it becomes your main risk surface.
+
+## Verification strategy for AI workloads
+
+AI outputs are not always deterministic, so verification must be policy-aware.
+
+A practical blend is:
+
+- deterministic checks for schema and policy compliance,
+- replay sampling for bounded deterministic tasks,
+- challenger review for suspicious outcomes,
+- and optional attestation for sensitive workloads.
+
+Do not force one mechanism for all routes. Use verification tiers based on value at risk.
+
+## Latency and throughput planning
+
+AI services fail when queue behavior is ignored.
+
+Track and tune:
+
+- queue depth per model,
+- operator warm pool size,
+- token/sec throughput,
+- cancellation rate,
+- timeout distribution.
+
+Set explicit degrade behavior (for example: fallback model or fast-fail) instead of letting queues saturate silently.
+
+## Abuse and cost controls
+
+Production AI endpoints attract abuse quickly. Add controls early:
+
+- per-identity quotas,
+- per-route compute budgets,
+- prompt and payload size limits,
+- and anomaly-based throttling.
+
+Economic sustainability depends as much on guardrails as raw model performance.
+
+## Developer experience for consumers
+
+Expose stable interfaces for app teams:
+
+- idempotent request IDs,
+- structured streaming events,
+- deterministic error codes,
+- versioned contract docs.
+
+The easier it is to integrate safely, the faster your Blueprint adoption.
+
+## Production readiness checklist
+
+Before large-scale traffic:
+
+- Model artifact hashes are immutable and auditable.
+- Sandbox routes enforce strict runtime limits.
+- Verification tiers are defined per task type.
+- Queue backpressure and fallback behavior are tested.
+- Abuse controls are active and monitored.
+- Incident runbooks exist for model and runtime regressions.
+
+## Closing
+
+Tangle makes it possible to run AI services as decentralized infrastructure rather than single-vendor endpoints. With Blueprints, you can define behavior once, let independent operators execute it, and enforce verification and settlement policies at the protocol layer.
+
+In the next post, we cover the final trust boundary for high-assurance workloads: **trusted execution environments (TEE)** in the Blueprint SDK.

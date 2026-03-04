@@ -1,16 +1,140 @@
 ---
 title: "How Tangle Verifies Work"
 slug: how-tangle-verifies-work
-summary: "Tangle supports multiple verification strategies — from optimistic challenges to ZK proofs. Here's how the verification layer works."
+summary: "Tangle supports multiple verification strategies - from optimistic challenges to ZK proofs. Here's how the verification layer works."
 date: "2026-02-18"
 author: "Drew Stone"
 tags: ["verification", "zk", "security"]
 series: "Tangle Re-Introduction"
 seriesOrder: 3
+coverImage: "/images/covers/how-tangle-verifies-work.svg"
+heroImage: "/images/covers/how-tangle-verifies-work.svg"
+imageAlt: "Branded Tangle cover depicting layered verification paths and proof signals"
 ---
 
-Tangle supports multiple verification strategies — from optimistic challenges to ZK proofs. This post explains how the verification layer works and why it matters for decentralized services.
+Execution alone is not enough for decentralized services. Tangle has to answer a stricter question: **how do we know the reported result is correct?**
 
-<Callout type="info" title="Content migration in progress">
-This post is being migrated from Webflow. The full article will be available shortly.
-</Callout>
+The verification layer is the answer. It converts claims of completed work into verifiable outcomes that can drive settlement and security.
+
+## What verification must prove
+
+A useful verification system should establish three things:
+
+1. Correctness: the result matches the intended computation.
+2. Integrity: the computation was executed under declared conditions.
+3. Accountability: failures or fraud can be attributed and penalized.
+
+Different workloads need different tradeoffs, so Tangle supports multiple verification strategies instead of forcing one proof model.
+
+## Verification modes on Tangle
+
+### 1) Deterministic replay
+
+For deterministic workloads, independent operators can replay the same input and compare outputs.
+
+Best when:
+
+- computation is deterministic,
+- replay cost is acceptable,
+- and low implementation complexity is preferred.
+
+Tradeoff: replay adds cost and latency.
+
+### 2) Optimistic verification with challenge windows
+
+Results are accepted optimistically, then subject to challenge during a bounded window. Challengers submit counter-evidence when outputs look invalid.
+
+Best when:
+
+- most executions are expected to be honest,
+- workloads are expensive to re-run universally,
+- and economic penalties are strong enough to deter fraud.
+
+Tradeoff: finality is delayed until the challenge window closes.
+
+### 3) Attested execution
+
+When a Blueprint runs in a trusted execution environment (TEE), operators can provide attestation evidence that the expected binary ran in approved hardware.
+
+Best when:
+
+- confidential data is involved,
+- integrity of the runtime environment is critical,
+- and tamper resistance matters as much as output checks.
+
+Tradeoff: you trust hardware roots and attestation pipelines.
+
+### 4) Proof-based verification (including ZK)
+
+For specific classes of computation, operators can submit cryptographic proofs that outputs satisfy declared constraints.
+
+Best when:
+
+- correctness must be validated without recomputation,
+- privacy is required,
+- or cross-domain trust boundaries are strict.
+
+Tradeoff: proving systems can increase engineering complexity.
+
+## The settlement pipeline
+
+Verification is not isolated. It is wired into economic finality.
+
+A simplified flow:
+
+1. Job is executed by the selected operator set.
+2. Operators submit result plus required evidence.
+3. The instance verification policy evaluates evidence.
+4. If accepted, the result becomes eligible for settlement.
+5. Rewards are distributed by policy weights.
+6. Invalid or fraudulent outcomes trigger penalties and slash events.
+
+This closes the loop between behavior and incentives.
+
+## Policy composition
+
+A single service can combine verification mechanisms.
+
+Example policy:
+
+- optimistic acceptance for low-value requests,
+- replay sampling for routine monitoring,
+- mandatory attestation for sensitive routes,
+- proof-required mode for high-value or regulated paths.
+
+This lets teams optimize for cost where possible and strictness where necessary.
+
+## Choosing the right strategy
+
+Use this rule of thumb:
+
+- If deterministic and cheap to recompute: prefer replay.
+- If expensive but contestable: use optimistic + challenges.
+- If confidentiality is required: require attestation.
+- If third parties need mathematical guarantees: require proofs.
+
+Many production services start with optimistic plus replay sampling, then add stronger proof requirements as value at risk grows.
+
+## Operational requirements
+
+Verification quality depends on operations, not only mechanism design.
+
+Minimum production controls:
+
+- canonical input/output encoding,
+- deterministic handler versions,
+- strict timeouts and retry policy,
+- durable evidence retention,
+- and auditable dispute logs.
+
+Without these, even strong proof systems can fail in practice.
+
+## Why this matters for developers
+
+Developers can define service behavior and verification at the Blueprint level, instead of rebuilding trust assumptions for every deployment. That standardization is what allows reusable infrastructure to scale without sacrificing security.
+
+## Closing
+
+Tangle's verification layer is intentionally plural: replay, optimistic challenges, attestation, and proofs each solve different risk profiles. The point is not to force one universal method, but to make trust policies explicit and enforceable.
+
+Next, we move from architecture to execution: **how to go from idea to production** when building on Tangle.
