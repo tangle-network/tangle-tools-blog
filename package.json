@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "test": "npm run lint && npm run build",
-    "audit:images": "node scripts/audit-images.js"
+    "audit:images": "node scripts/audit-images.js",
+    "sync:webflow-images": "node scripts/sync-webflow-images.mjs"
   },
   "dependencies": {
     "next": "^15.3.1",
