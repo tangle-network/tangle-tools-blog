@@ -29,7 +29,7 @@ export default function PostIndexPage() {
         </Link>
       </section>
 
-      <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+      <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
         {posts.map((post) => (
           <PostCard key={post.frontmatter.slug} post={post} />
         ))}
