@@ -1,11 +1,17 @@
 /* eslint-disable @next/next/no-img-element */
 import { cn } from "@/lib/utils";
+import { toBlogAssetPath } from "@/lib/post-images";
 
 type MdxImageProps = React.ImgHTMLAttributes<HTMLImageElement>;
 type MdxVideoProps = React.VideoHTMLAttributes<HTMLVideoElement>;
 type MdxIframeProps = React.IframeHTMLAttributes<HTMLIFrameElement>;
 
-export function MdxImage({ alt = "", className, title, ...props }: MdxImageProps) {
+export function MdxImage({ alt = "", className, title, src, ...props }: MdxImageProps) {
+  const resolvedSrc =
+    typeof src === "string" && !/^(data:|blob:|cid:)/i.test(src)
+      ? toBlogAssetPath(src)
+      : src;
+
   return (
     <figure className="mdx-media">
       <div className="mdx-media-frame">
@@ -15,6 +21,7 @@ export function MdxImage({ alt = "", className, title, ...props }: MdxImageProps
           decoding="async"
           loading="lazy"
           {...props}
+          src={resolvedSrc}
         />
       </div>
       {title && <figcaption className="mdx-media-caption">{title}</figcaption>}

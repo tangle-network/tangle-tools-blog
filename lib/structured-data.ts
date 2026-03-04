@@ -55,7 +55,7 @@ export function buildArticleStructuredData(
       url: SITE_URL,
       logo: {
         "@type": "ImageObject",
-        url: "https://tangle.tools/favicon.ico",
+        url: "https://tangle.tools/post/favicon.ico",
       },
     },
     mainEntityOfPage: `${SITE_URL}/${slug}`,

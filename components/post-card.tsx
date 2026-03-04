@@ -18,7 +18,7 @@ export function PostCard({ post }: { post: Post }) {
           <PostImage
             alt={thumbnailAlt}
             imageClassName="transition-transform duration-500 group-hover:scale-[1.04]"
-            label={frontmatter.series ?? "Tangle Editorial"}
+            label={frontmatter.series ?? "Tangle Blog"}
             sizes="(min-width: 1280px) 360px, (min-width: 768px) 46vw, 92vw"
             src={thumbnail}
           />
@@ -27,7 +27,7 @@ export function PostCard({ post }: { post: Post }) {
               {frontmatter.series ?? "Tangle Blog"}
             </span>
             <span className="relative h-7 w-7 overflow-hidden rounded-full border border-white/30 bg-white/10 shadow-[0_8px_16px_-10px_rgba(0,0,0,0.55)] backdrop-blur-sm">
-              <Image src="/brand/tangle-icon-filled.svg" alt="" fill sizes="28px" className="object-cover" />
+              <Image src="/post/brand/tangle-icon-filled.svg" alt="" fill sizes="28px" className="object-cover" />
             </span>
           </div>
         </div>

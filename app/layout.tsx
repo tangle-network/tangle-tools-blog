@@ -7,7 +7,7 @@ import "katex/dist/katex.min.css";
 
 export const metadata: Metadata = {
   title: {
-    default: "Tangle Technical Editorial",
+    default: "Tangle Blog",
     template: "%s | Tangle Blog",
   },
   description:
@@ -22,9 +22,12 @@ export const metadata: Metadata = {
   ],
   metadataBase: new URL("https://tangle.tools"),
   icons: {
-    icon: [{ url: "/favicon.svg", type: "image/svg+xml" }],
-    shortcut: ["/favicon.svg"],
-    apple: [{ url: "/favicon.svg" }],
+    icon: [
+      { url: "/post/favicon.ico", sizes: "any" },
+      { url: "/post/favicon.svg", type: "image/svg+xml" },
+    ],
+    shortcut: ["/post/favicon.ico"],
+    apple: [{ url: "/post/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
   },
   alternates: {
     canonical: "/post",
@@ -37,12 +40,12 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: "/post",
     siteName: "Tangle Blog",
-    title: "Tangle Technical Editorial",
+    title: "Tangle Blog",
     description:
       "Technical deep-dives into decentralized infrastructure, blueprints, TEE, verification, and building on-chain services.",
     images: [
       {
-        url: "/og",
+        url: "/post/og",
         width: 1200,
         height: 630,
         alt: "Tangle Blog",
@@ -51,10 +54,10 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Tangle Technical Editorial",
+    title: "Tangle Blog",
     description:
       "Technical deep-dives into decentralized infrastructure, blueprints, TEE, verification, and building on-chain services.",
-    images: ["/og"],
+    images: ["/post/og"],
     creator: "@tabordrewstone",
     site: "@tangle_network",
   },

@@ -9,8 +9,7 @@ const PRODUCT_LINKS = [
 ] as const;
 
 const BLOG_LINKS = [
-  { href: "/", label: "Latest" },
-  { href: "/post", label: "Archive" },
+  { href: "/post", label: "All Posts" },
   { href: "/feed.xml", label: "RSS Feed" },
 ] as const;
 
@@ -19,7 +18,7 @@ export function Footer() {
     <footer className="mt-16 border-t shell-divider bg-[color:var(--bg-elevated)]/66">
       <div className="mx-auto grid max-w-6xl gap-10 px-4 py-12 sm:px-6 lg:grid-cols-[1.4fr_1fr_1fr] lg:gap-14">
         <div>
-          <BrandLogo className="mb-4" showBlogLabel={false} />
+          <BrandLogo className="mb-4" />
           <p className="max-w-md text-sm leading-relaxed text-[color:var(--text-muted)]">
             Engineering notes from the Tangle team: blueprint architecture, verifiable execution,
             restaking systems, and production design decisions.

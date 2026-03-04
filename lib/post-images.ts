@@ -26,7 +26,7 @@ export function resolveFrontmatterImage(frontmatter: PostFrontmatter): string | 
     if (typeof value !== "string") continue;
     const trimmed = value.trim();
     if (trimmed.length > 0) {
-      return normalizeImagePath(trimmed);
+      return toBlogAssetPath(trimmed);
     }
   }
 

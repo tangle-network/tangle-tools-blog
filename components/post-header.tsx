@@ -17,7 +17,7 @@ export function PostHeader({ frontmatter, readingTime }: PostHeaderProps) {
   return (
     <header className="mb-10 rounded-3xl border border-[color:var(--border-subtle)] bg-[color:var(--bg-card)] px-6 py-7 shadow-[var(--shadow-soft)] sm:px-8 sm:py-8">
       <div className="mb-6 flex flex-wrap items-center justify-between gap-4 border-b border-[color:var(--border-subtle)] pb-5">
-        <BrandLogo className="max-w-full" showBlogLabel={false} />
+        <BrandLogo className="max-w-full" />
         <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[color:var(--text-muted)]">
           Published article
         </p>
@@ -74,19 +74,17 @@ export function PostHeader({ frontmatter, readingTime }: PostHeaderProps) {
         ))}
       </div>
 
-      {heroImage && (
-        <div className="mt-7">
-          <div className="aspect-[16/9] sm:aspect-[2.2/1]">
-            <PostImage
-              alt={heroAlt}
-              className="rounded-2xl border border-[color:var(--border-subtle)]"
-              priority
-              sizes="(min-width: 1024px) 860px, 100vw"
-              src={heroImage}
-            />
-          </div>
+      <div className="mt-7">
+        <div className="aspect-[16/9] sm:aspect-[2.2/1]">
+          <PostImage
+            alt={heroAlt}
+            className="rounded-2xl border border-[color:var(--border-subtle)]"
+            priority
+            sizes="(min-width: 1024px) 860px, 100vw"
+            src={heroImage}
+          />
         </div>
-      )}
+      </div>
     </header>
   );
 }

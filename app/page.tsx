@@ -22,7 +22,7 @@ export default function BlogIndex() {
         <div className="grid gap-8 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] lg:items-end">
           <div>
             <p className="mb-4 inline-flex items-center gap-2 rounded-full border border-[color:var(--color-brand)]/30 bg-[color:var(--color-brand-soft)] px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-[color:var(--color-brand-strong)]">
-              Tangle Technical Editorial
+              Tangle Blog
             </p>
             <h1 className="mb-4 text-3xl font-semibold tracking-tight text-[color:var(--text-strong)] sm:text-[2.75rem]">
               Ship infrastructure that can be verified, priced, and operated at scale.

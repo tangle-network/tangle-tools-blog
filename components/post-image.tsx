@@ -1,4 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
+"use client";
+
+import { useState } from "react";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { isExternalImage } from "@/lib/post-images";
@@ -28,7 +31,7 @@ function FallbackVisual({ label }: { label: string }) {
           {label}
         </span>
         <span className="relative h-7 w-7 overflow-hidden rounded-full border border-[color:var(--border-strong)]/80 bg-[color:var(--bg-card)]/80">
-          <Image src="/brand/tangle-icon-filled.svg" alt="" fill sizes="28px" className="object-cover" />
+          <Image src="/post/brand/tangle-icon-filled.svg" alt="" fill sizes="28px" className="object-cover" />
         </span>
       </div>
     </div>
@@ -42,30 +45,36 @@ export function PostImage({
   priority = false,
   className,
   imageClassName,
-  label = "Tangle Editorial",
+  label = "Tangle Blog",
 }: PostImageProps) {
+  const [failed, setFailed] = useState(false);
+  const imageSrc = src?.trim() ?? "";
+  const canRenderImage = imageSrc.length > 0 && !failed;
+
   return (
     <div className={cn("relative isolate h-full w-full overflow-hidden rounded-xl", className)}>
-      {src ? (
+      {canRenderImage ? (
         <>
-          {isExternalImage(src) ? (
+          {isExternalImage(imageSrc) ? (
             <img
-              src={src}
+              src={imageSrc}
               alt={alt}
               className={cn("h-full w-full object-cover", imageClassName)}
               decoding="async"
               fetchPriority={priority ? "high" : "auto"}
               loading={priority ? "eager" : "lazy"}
               sizes={sizes}
+              onError={() => setFailed(true)}
             />
           ) : (
             <Image
-              src={src}
+              src={imageSrc}
               alt={alt}
               fill
               className={cn("object-cover", imageClassName)}
               priority={priority}
               sizes={sizes}
+              onError={() => setFailed(true)}
             />
           )}
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/18 via-black/0 to-transparent" />

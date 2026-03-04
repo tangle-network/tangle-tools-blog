@@ -1,5 +1,3 @@
-import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
 import { getAllPosts } from "@/lib/posts";
 import { PostCard } from "@/components/post-card";
 
@@ -17,16 +15,9 @@ export default function PostIndexPage() {
             All Tangle blog posts
           </h1>
           <p className="mt-3 max-w-2xl text-base text-[color:var(--text-body)]">
-            Full technical editorial archive, sorted by most recent publication.
+            Full post archive, sorted by most recent publication.
           </p>
         </div>
-        <Link
-          href="/"
-          className="inline-flex items-center gap-1.5 rounded-lg border border-[color:var(--border-subtle)] px-3 py-2 text-sm font-medium text-[color:var(--text-body)] transition-colors hover:border-[color:var(--border-strong)] hover:text-[color:var(--text-strong)]"
-        >
-          <ArrowLeft className="h-4 w-4" />
-          Back home
-        </Link>
       </section>
 
       <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
