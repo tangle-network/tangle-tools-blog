@@ -22,7 +22,7 @@ export function BrandLogo({
       )}
       aria-label="Go to Tangle blog home"
     >
-      <span className="relative hidden h-[20px] w-[168px] dark:block sm:h-[22px] sm:w-[182px]">
+      <span className="relative hidden h-[26px] w-[220px] dark:block sm:h-[30px] sm:w-[252px] lg:h-[34px] lg:w-[286px]">
         <Image
           src="/post/brand/tangle-logo-light.svg"
           alt="Tangle"
@@ -32,7 +32,7 @@ export function BrandLogo({
           className="object-contain object-left"
         />
       </span>
-      <span className="relative h-[20px] w-[168px] dark:hidden sm:h-[22px] sm:w-[182px]">
+      <span className="relative h-[26px] w-[220px] dark:hidden sm:h-[30px] sm:w-[252px] lg:h-[34px] lg:w-[286px]">
         <Image
           src="/post/brand/tangle-logo.svg"
           alt="Tangle"
