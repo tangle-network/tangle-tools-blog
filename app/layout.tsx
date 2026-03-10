@@ -43,7 +43,7 @@ export const metadata: Metadata = {
       "Technical deep-dives into decentralized infrastructure, blueprints, TEE, verification, and building on-chain services.",
     images: [
       {
-        url: "/blog/og",
+        url: "/images/covers/why-ai-infrastructure-needs-decentralization.png",
         width: 1200,
         height: 630,
         alt: "Tangle Blog",
@@ -55,7 +55,7 @@ export const metadata: Metadata = {
     title: "Tangle Blog",
     description:
       "Technical deep-dives into decentralized infrastructure, blueprints, TEE, verification, and building on-chain services.",
-    images: ["/blog/og"],
+    images: ["/images/covers/why-ai-infrastructure-needs-decentralization.png"],
     creator: "@tabordrewstone",
     site: "@tangle_network",
   },

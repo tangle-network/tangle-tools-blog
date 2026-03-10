@@ -2,6 +2,8 @@ import { Feed } from "feed";
 import { getAllPosts } from "@/lib/posts";
 import { getAbsolutePostSocialImage } from "@/lib/post-images";
 
+export const dynamic = "force-static";
+
 export async function GET() {
   const posts = getAllPosts();
   const siteUrl = "https://tangle.tools/blog";

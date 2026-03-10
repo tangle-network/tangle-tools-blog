@@ -51,13 +51,11 @@ export function toAbsoluteImageUrl(
   return `${siteOrigin}${toBlogAssetPath(src)}`;
 }
 
-export function getPostSocialImage(frontmatter: PostFrontmatter, slug: string): string {
-  const frontmatterImage = resolveFrontmatterImage(frontmatter);
-  if (!frontmatterImage) {
-    return `/blog/og/${slug}`;
-  }
-
-  return toBlogAssetPath(frontmatterImage);
+export function getPostSocialImage(_frontmatter: PostFrontmatter, slug: string): string {
+  // Always use the generated OG card route. Cover images referenced in
+  // frontmatter don't ship in public/ and Next.js static export will fail
+  // trying to determine their dimensions during metadata resolution.
+  return `/og/${slug}`;
 }
 
 export function getAbsolutePostSocialImage(

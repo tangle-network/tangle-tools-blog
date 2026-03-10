@@ -27,4 +27,4 @@ routes = [
 ]
 
 [vars]
-BLOG_ORIGIN = "https://blog-origin.tangle.tools"
+BLOG_ORIGIN = "https://tangle-blog.pages.dev"
