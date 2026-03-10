@@ -14,8 +14,9 @@ export function OgCard({ eyebrow, title, summary, imageUrl }: OgCardProps) {
         width: "100%",
         display: "flex",
         justifyContent: "space-between",
-        background:
-          "radial-gradient(circle at -10% -15%, rgba(175, 120, 255, 0.34), transparent 46%), radial-gradient(circle at 108% -8%, rgba(128, 62, 233, 0.4), transparent 42%), #090510",
+        backgroundColor: "#090510",
+        backgroundImage:
+          "radial-gradient(circle at -10% -15%, rgba(175, 120, 255, 0.34), transparent 46%), radial-gradient(circle at 108% -8%, rgba(128, 62, 233, 0.4), transparent 42%)",
         color: "#f4efff",
         fontFamily: "system-ui, sans-serif",
         overflow: "hidden",
@@ -35,7 +36,7 @@ export function OgCard({ eyebrow, title, summary, imageUrl }: OgCardProps) {
           {eyebrow && (
             <div
               style={{
-                display: "inline-flex",
+                display: "flex",
                 alignSelf: "flex-start",
                 border: "1px solid rgba(198, 163, 255, 0.42)",
                 borderRadius: "999px",

@@ -10,7 +10,7 @@ interface Env {
   BLOG_ORIGIN?: string;
 }
 
-const DEFAULT_BLOG_ORIGIN = "https://blog-origin.tangle.tools";
+const DEFAULT_BLOG_ORIGIN = "https://tangle-blog.pages.dev";
 const BLOG_PATH_PREFIXES = ["/blog/", "/images/", "/og/", "/_next/", "/brand/"];
 const BLOG_EXACT_PATHS = new Set([
   "/blog",
