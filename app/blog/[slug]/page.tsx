@@ -32,13 +32,13 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       description: post.frontmatter.summary,
       keywords: post.frontmatter.tags,
       alternates: {
-        canonical: `/post/${slug}`,
+        canonical: `/blog/${slug}`,
       },
       openGraph: {
         title: post.frontmatter.title,
         description: post.frontmatter.summary,
         type: "article",
-        url: `/post/${slug}`,
+        url: `/blog/${slug}`,
         publishedTime: post.frontmatter.date,
         authors: [post.frontmatter.author],
         tags: post.frontmatter.tags,

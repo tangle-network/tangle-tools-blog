@@ -22,7 +22,7 @@ export function PostFooter({ prev, next, series }: PostFooterProps) {
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         {prev ? (
           <Link
-            href={`/post/${prev.frontmatter.slug}`}
+            href={`/blog/${prev.frontmatter.slug}`}
             className="group flex items-start gap-3 rounded-xl border border-[color:var(--border-subtle)] bg-[color:var(--bg-card)] p-4 transition-all hover:border-[color:var(--border-strong)]"
           >
             <ArrowLeft className="mt-0.5 h-4 w-4 shrink-0 text-[color:var(--text-muted)] transition-transform group-hover:-translate-x-0.5" />
@@ -39,7 +39,7 @@ export function PostFooter({ prev, next, series }: PostFooterProps) {
 
         {next ? (
           <Link
-            href={`/post/${next.frontmatter.slug}`}
+            href={`/blog/${next.frontmatter.slug}`}
             className="group flex items-start justify-end gap-3 rounded-xl border border-[color:var(--border-subtle)] bg-[color:var(--bg-card)] p-4 text-right transition-all hover:border-[color:var(--border-strong)]"
           >
             <div className="min-w-0">

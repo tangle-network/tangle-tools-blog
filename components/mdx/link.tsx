@@ -4,7 +4,7 @@ type AnchorProps = React.ComponentPropsWithoutRef<"a">;
 
 function normalizeHref(rawHref: string): string {
   if (rawHref.startsWith("/blog/")) {
-    return `/post/${rawHref.slice(6)}`;
+    return `/blog/${rawHref.slice(6)}`;
   }
   return rawHref;
 }

@@ -6,7 +6,7 @@ export interface FaqEntry {
   answer: string;
 }
 
-const SITE_URL = "https://tangle.tools/post";
+const SITE_URL = "https://tangle.tools/blog";
 
 function stripMarkdown(raw: string): string {
   return raw
@@ -55,7 +55,7 @@ export function buildArticleStructuredData(
       url: SITE_URL,
       logo: {
         "@type": "ImageObject",
-        url: "https://tangle.tools/post/favicon.ico",
+        url: "https://tangle.tools/favicon.svg",
       },
     },
     mainEntityOfPage: `${SITE_URL}/${slug}`,

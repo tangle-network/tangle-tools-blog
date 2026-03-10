@@ -6,5 +6,5 @@ interface LegacyPageProps {
 
 export default async function LegacySlugRedirectPage({ params }: LegacyPageProps) {
   const { slug } = await params;
-  permanentRedirect(`/post/${slug}`);
+  permanentRedirect(`/blog/${slug}`);
 }

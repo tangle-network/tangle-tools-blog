@@ -4,7 +4,7 @@ import { getAbsolutePostSocialImage } from "@/lib/post-images";
 
 export async function GET() {
   const posts = getAllPosts();
-  const siteUrl = "https://tangle.tools/post";
+  const siteUrl = "https://tangle.tools/blog";
 
   const feed = new Feed({
     title: "Tangle Blog",

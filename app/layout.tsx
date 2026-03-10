@@ -23,14 +23,12 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://tangle.tools"),
   icons: {
     icon: [
-      { url: "/post/favicon.ico", sizes: "any" },
-      { url: "/post/favicon.svg", type: "image/svg+xml" },
+      { url: "/favicon.svg", type: "image/svg+xml" },
     ],
-    shortcut: ["/post/favicon.ico"],
-    apple: [{ url: "/post/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
+    shortcut: ["/favicon.svg"],
   },
   alternates: {
-    canonical: "/post",
+    canonical: "/blog",
     types: {
       "application/rss+xml": "/feed.xml",
     },
@@ -38,14 +36,14 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "/post",
+    url: "/blog",
     siteName: "Tangle Blog",
     title: "Tangle Blog",
     description:
       "Technical deep-dives into decentralized infrastructure, blueprints, TEE, verification, and building on-chain services.",
     images: [
       {
-        url: "/post/og",
+        url: "/blog/og",
         width: 1200,
         height: 630,
         alt: "Tangle Blog",
@@ -57,7 +55,7 @@ export const metadata: Metadata = {
     title: "Tangle Blog",
     description:
       "Technical deep-dives into decentralized infrastructure, blueprints, TEE, verification, and building on-chain services.",
-    images: ["/post/og"],
+    images: ["/blog/og"],
     creator: "@tabordrewstone",
     site: "@tangle_network",
   },

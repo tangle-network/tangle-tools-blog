@@ -50,7 +50,7 @@ export default function BlogIndex() {
               </div>
             </dl>
             <Link
-              href="/post"
+              href="/blog"
               className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-[color:var(--color-brand-strong)] transition-colors hover:text-[color:var(--color-brand)]"
             >
               Browse full archive
@@ -66,7 +66,7 @@ export default function BlogIndex() {
             Latest posts
           </h2>
           <Link
-            href="/post"
+            href="/blog"
             className="inline-flex items-center gap-1.5 rounded-lg border border-[color:var(--border-subtle)] bg-[color:var(--bg-card)] px-3 py-2 text-sm font-medium text-[color:var(--text-body)] transition-colors hover:border-[color:var(--border-strong)] hover:text-[color:var(--text-strong)]"
           >
             View all {posts.length}
@@ -89,7 +89,7 @@ export default function BlogIndex() {
               {mobileOverflow.map((post) => (
                 <li key={post.frontmatter.slug}>
                   <Link
-                    href={`/post/${post.frontmatter.slug}`}
+                    href={`/blog/${post.frontmatter.slug}`}
                     className="flex items-center justify-between gap-3 rounded-lg px-2 py-1.5 text-sm text-[color:var(--text-body)] transition-colors hover:bg-[color:var(--bg-subtle)] hover:text-[color:var(--text-strong)]"
                   >
                     <span className="line-clamp-1">{post.frontmatter.title}</span>

@@ -12,7 +12,7 @@ export function PostCard({ post }: { post: Post }) {
   const thumbnailAlt = resolveFrontmatterImageAlt(frontmatter) ?? frontmatter.title;
 
   return (
-    <Link href={`/post/${frontmatter.slug}`} className="group block h-full">
+    <Link href={`/blog/${frontmatter.slug}`} className="group block h-full">
       <article className="surface-card flex h-full flex-col overflow-hidden rounded-2xl border border-[color:var(--border-subtle)] p-2 transition-all duration-200 hover:-translate-y-0.5 hover:border-[color:var(--border-strong)] hover:shadow-[var(--shadow-lift)]">
         <div className="relative aspect-[16/9] overflow-hidden rounded-xl">
           <PostImage
@@ -27,7 +27,7 @@ export function PostCard({ post }: { post: Post }) {
               {frontmatter.series ?? "Tangle Blog"}
             </span>
             <span className="relative h-7 w-7 overflow-hidden rounded-full border border-white/30 bg-white/10 shadow-[0_8px_16px_-10px_rgba(0,0,0,0.55)] backdrop-blur-sm">
-              <Image src="/post/brand/tangle-icon-filled.svg" alt="" fill sizes="28px" className="object-cover" />
+              <Image src="/brand/tangle-icon-filled.svg" alt="" fill sizes="28px" className="object-cover" />
             </span>
           </div>
         </div>

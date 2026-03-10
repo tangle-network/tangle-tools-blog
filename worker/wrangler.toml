@@ -10,8 +10,20 @@ routes = [
   { pattern = "tangle.tools/feed.xml", zone_name = "tangle.tools" },
   { pattern = "tangle.tools/sitemap.xml", zone_name = "tangle.tools" },
   { pattern = "tangle.tools/images/*", zone_name = "tangle.tools" },
+  { pattern = "tangle.tools/_next/*", zone_name = "tangle.tools" },
   { pattern = "tangle.tools/og", zone_name = "tangle.tools" },
-  { pattern = "tangle.tools/og/*", zone_name = "tangle.tools" }
+  { pattern = "tangle.tools/og/*", zone_name = "tangle.tools" },
+
+  { pattern = "www.tangle.tools/blog", zone_name = "tangle.tools" },
+  { pattern = "www.tangle.tools/blog/*", zone_name = "tangle.tools" },
+  { pattern = "www.tangle.tools/post", zone_name = "tangle.tools" },
+  { pattern = "www.tangle.tools/post/*", zone_name = "tangle.tools" },
+  { pattern = "www.tangle.tools/feed.xml", zone_name = "tangle.tools" },
+  { pattern = "www.tangle.tools/sitemap.xml", zone_name = "tangle.tools" },
+  { pattern = "www.tangle.tools/images/*", zone_name = "tangle.tools" },
+  { pattern = "www.tangle.tools/_next/*", zone_name = "tangle.tools" },
+  { pattern = "www.tangle.tools/og", zone_name = "tangle.tools" },
+  { pattern = "www.tangle.tools/og/*", zone_name = "tangle.tools" }
 ]
 
 [vars]
