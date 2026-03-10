@@ -36,3 +36,6 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 geo.db
+
+# worker
+worker/node_modules/

@@ -3,7 +3,7 @@ import { ArrowUpRight } from "lucide-react";
 import { ThemeToggle } from "./theme-toggle";
 import { BrandLogo } from "./brand-logo";
 
-const PRIMARY_LINK = { href: "/post", label: "All Posts" } as const;
+const PRIMARY_LINK = { href: "/blog", label: "All Posts" } as const;
 
 const EXTERNAL_LINKS = [
   { href: "https://tangle.tools", label: "tangle.tools" },
@@ -27,7 +27,7 @@ export function Header() {
 
         <div className="flex items-center gap-2 sm:gap-2.5">
           <Link
-            href="/post"
+            href="/blog"
             className="inline-flex rounded-lg px-2.5 py-2 text-sm font-medium text-[color:var(--text-muted)] transition-colors hover:bg-[color:var(--bg-subtle)] hover:text-[color:var(--text-strong)] md:hidden"
           >
             Posts

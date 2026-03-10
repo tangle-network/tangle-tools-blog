@@ -9,7 +9,7 @@ const PRODUCT_LINKS = [
 ] as const;
 
 const BLOG_LINKS = [
-  { href: "/post", label: "All Posts" },
+  { href: "/blog", label: "All Posts" },
   { href: "/feed.xml", label: "RSS Feed" },
 ] as const;
 
@@ -68,7 +68,7 @@ export function Footer() {
       <div className="border-t shell-divider">
         <div className="mx-auto flex max-w-6xl flex-col gap-2 px-4 py-4 text-xs text-[color:var(--text-muted)] sm:flex-row sm:items-center sm:justify-between sm:px-6">
           <p>&copy; {new Date().getFullYear()} Tangle Network. All rights reserved.</p>
-          <p>Built for tangle.tools/post editorial publishing.</p>
+          <p>Built for tangle.tools/blog editorial publishing.</p>
         </div>
       </div>
     </footer>

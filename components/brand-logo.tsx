@@ -9,7 +9,7 @@ interface BrandLogoProps {
 }
 
 export function BrandLogo({
-  href = "/post",
+  href = "/blog",
   className,
   priority = false,
 }: BrandLogoProps) {

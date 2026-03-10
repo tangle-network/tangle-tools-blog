@@ -31,7 +31,7 @@ function FallbackVisual({ label }: { label: string }) {
           {label}
         </span>
         <span className="relative h-7 w-7 overflow-hidden rounded-full border border-[color:var(--border-strong)]/80 bg-[color:var(--bg-card)]/80">
-          <Image src="/post/brand/tangle-icon-filled.svg" alt="" fill sizes="28px" className="object-cover" />
+          <Image src="/brand/tangle-icon-filled.svg" alt="" fill sizes="28px" className="object-cover" />
         </span>
       </div>
     </div>

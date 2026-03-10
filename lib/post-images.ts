@@ -1,6 +1,5 @@
 import type { PostFrontmatter } from "@/lib/posts";
 
-const BLOG_BASE_PATH = "/post";
 const SITE_ORIGIN = "https://tangle.tools";
 
 const FRONTMATTER_IMAGE_KEYS = [
@@ -41,13 +40,7 @@ export function resolveFrontmatterImageAlt(frontmatter: PostFrontmatter): string
 
 export function toBlogAssetPath(src: string): string {
   if (isExternalImage(src)) return src;
-
-  const normalized = normalizeImagePath(src);
-  if (normalized.startsWith(`${BLOG_BASE_PATH}/`)) {
-    return normalized;
-  }
-
-  return `${BLOG_BASE_PATH}${normalized}`;
+  return normalizeImagePath(src);
 }
 
 export function toAbsoluteImageUrl(
@@ -61,7 +54,7 @@ export function toAbsoluteImageUrl(
 export function getPostSocialImage(frontmatter: PostFrontmatter, slug: string): string {
   const frontmatterImage = resolveFrontmatterImage(frontmatter);
   if (!frontmatterImage) {
-    return `${BLOG_BASE_PATH}/og/${slug}`;
+    return `/blog/og/${slug}`;
   }
 
   return toBlogAssetPath(frontmatterImage);

@@ -11,9 +11,9 @@ interface Env {
 }
 
 const DEFAULT_BLOG_ORIGIN = "https://blog-origin.tangle.tools";
-const BLOG_PATH_PREFIXES = ["/post/", "/images/", "/og/", "/_next/", "/brand/"];
+const BLOG_PATH_PREFIXES = ["/blog/", "/images/", "/og/", "/_next/", "/brand/"];
 const BLOG_EXACT_PATHS = new Set([
-  "/post",
+  "/blog",
   "/images",
   "/og",
   "/_next",
@@ -22,6 +22,7 @@ const BLOG_EXACT_PATHS = new Set([
   "/sitemap.xml",
   "/robots.txt",
   "/favicon.ico",
+  "/favicon.svg",
 ]);
 
 function isBlogPath(pathname: string): boolean {
@@ -64,13 +65,13 @@ export default {
     const url = new URL(request.url);
     const pathname = url.pathname;
 
-    // Legacy Webflow blog path -> new blog path
-    if (pathname === "/blog" || pathname === "/blog/") {
-      return Response.redirect(`${url.origin}/post${url.search}`, 301);
+    // Legacy /post/* -> /blog/* redirect
+    if (pathname === "/post" || pathname === "/post/") {
+      return Response.redirect(`${url.origin}/blog${url.search}`, 301);
     }
 
-    if (pathname.startsWith("/blog/")) {
-      const nextPath = pathname.replace(/^\/blog(?=\/)/, "/post");
+    if (pathname.startsWith("/post/")) {
+      const nextPath = pathname.replace(/^\/post(?=\/)/, "/blog");
       return Response.redirect(`${url.origin}${nextPath}${url.search}`, 301);
     }
 
