@@ -3,7 +3,8 @@ title: 'Trusted Execution on Tangle: How TEE Works in the Blueprint SDK'
 slug: trusted-execution-on-tangle
 summary: >-
   How the Blueprint SDK integrates AWS Nitro, GCP Confidential Space, and Azure
-  CVM for hardware-isolated execution.
+  CVM for hardware-isolated execution with attestation, sealed secrets, and
+  multi-cloud provisioning.
 date: '2026-03-02'
 author: Drew Stone
 tags:
@@ -21,199 +22,124 @@ heroImage: /images/covers/trusted-execution-on-tangle.png
 
 ---
 
-This is the final post in our re-introduction series. We've covered why decentralized infrastructure matters, how verification works, the developer experience, and specific AI services. This post is about what comes next.
+Previous posts covered [why decentralized AI infrastructure matters](/post/why-ai-infrastructure-needs-decentralization), [how blueprints work](/post/how-blueprints-work), [verification mechanisms](/post/how-tangle-verifies-work), [building from idea to production](/post/building-on-tangle-from-idea-to-production), and [AI services with inference and sandboxes](/post/building-ai-services-on-tangle). This post covers what just shipped: first-class TEE support in the Blueprint SDK.
 
-I'll be direct: this is part roadmap, part vision, part acknowledgment of what we don't know yet. The honest answer to "where is this going?" is "we're building in a direction, learning as we go, and adjusting based on what works."
+## The problem TEE solves for blueprints
 
-## Where We Are Today
+Verification in Day 3 covered how Tangle proves work was done correctly. But verification happens after execution. TEE flips this: it proves the execution environment itself is trustworthy *before and during* computation.
 
-Before looking forward, the honest status:
+For AI inference, this matters. A model running inside an AWS Nitro Enclave or an Azure Confidential VM can prove it's running the exact binary you expect, on hardware that isolates it from the operator. The operator can't read the model weights. They can't tamper with the inference. The hardware enforces this, not a smart contract.
 
-**Traction (as of Q1 2026):**
-- Mainnet live since [DATE]
-- [X] operators actively running services
-- [Y] blueprints deployed (FROST, DVN, Hyperlane)
-- [Z] TNT staked in collateral
+Tangle's TEE integration lets blueprint developers declare TEE requirements at the SDK level, and the runtime handles provisioning across AWS Nitro, GCP Confidential Space, Azure CVM, or direct hardware (Intel TDX, AMD SEV-SNP).
 
-*Note: We're early. These numbers are small. We're sharing them because transparency matters more than looking impressive.*
+## Three deployment modes
 
-**Team:** [X] people, backgrounds in [cryptography/systems/blockchain]. Backed by [investors/self-funded]. Runway through [timeframe].
+The SDK supports three modes, each for a different operational model:
 
----
+**Direct mode.** The blueprint runner itself executes inside a TEE. Device passthrough gives it access to `/dev/tdx_guest` or `/dev/sev-guest`. The runner produces attestation by hashing its own binary. This is the highest-integrity path with the fewest network trust links.
 
-## What We've Built
+```rust
+let tee = TeeConfig::builder()
+    .requirement(TeeRequirement::Required)
+    .mode(TeeMode::Direct)
+    .allow_providers([TeeProvider::IntelTdx])
+    .build()?;
 
-Here's what exists today:
+BlueprintRunner::builder(config, env)
+    .tee(tee)
+    .router(router)
+    .run()
+    .await?;
+```
 
-**Tangle Network** - A blockchain purpose-built for coordinating off-chain services. Operators register, stake collateral, and run services. Customers pay for work. Verification and slashing happen on-chain.
+**Remote mode.** The runner provisions workloads into cloud TEE instances. It calls the AWS EC2 API to launch Nitro Enclave instances, the GCP Compute API for Confidential Space VMs, or the Azure ARM API for DCasv5 CVMs. The runner manages the lifecycle; the workload runs in hardware isolation.
 
-**Blueprint SDK** - Rust framework for building services. Handles protocol integration, job routing, fee distribution. You write the logic; the framework handles the plumbing.
+**Hybrid mode.** Some jobs route to TEE, some don't. A pricing engine might run in a standard container while the model inference runs in a Nitro Enclave. Routing is controlled by a policy file that maps job types to execution environments.
 
-**Core Blueprints** - Production-ready blueprints for threshold signatures (FROST), cross-chain infrastructure (LayerZero DVN, Hyperlane), and MPC protocols.
+## How attestation flows through the system
 
-**Developer Tooling** - CLI for local development, testing, deployment. Not polished, but functional.
+When a TEE deployment starts, attestation follows this path:
 
-This is infrastructure that works. People are building on it. But we're early, and there's much more to do.
+1. The backend provisions the workload (EC2 instance with enclave, Confidential Space VM, etc.)
+2. The sidecar inside the TEE reads hardware attestation (NSM document on Nitro, OIDC token from teeserver.sock on GCP, vTPM report on Azure)
+3. The attestation report includes a measurement (hash of the running binary) and a timestamp
+4. This report is cached in the deployment handle for idempotent re-submission
+5. The on-chain contract stores `keccak256(attestationJsonBytes)` so anyone can verify
 
-## Near-Term: Q1-Q2 2026
+The `AttestationVerifier` trait lets you plug in verification logic per provider. Each provider has different evidence formats, but they all answer the same question: is this binary running on genuine TEE hardware?
 
-### Success Metrics for Q1-Q2
+```rust
+pub trait AttestationVerifier: Send + Sync {
+    fn verify(
+        &self,
+        report: &AttestationReport,
+        config: &TeeConfig,
+    ) -> Result<VerifiedAttestation, TeeError>;
+}
+```
 
-What "done" looks like:
-- Inference blueprint live with 3+ operators, handling real production traffic
-- Sandbox runtime supporting Python/JS with under 2s cold start
-- Documentation comprehensive enough that a developer can deploy a blueprint without Discord help
-- At least one external team building on blueprints (not us, not friends)
+Built-in verifiers check provider type, debug mode flags, measurement hashes, and attestation freshness. The GCP verifier, for example, rejects debug-mode attestations unless explicitly configured to allow them (a security fix that shipped with this PR).
 
-### AI Service Blueprints
+## Sealed secrets: why container recreation is forbidden
 
-The previous post outlined inference and sandbox services. These move from design to production:
+Standard Docker deployments inject secrets via environment variables. When a config changes, you recreate the container with new env vars.
 
-**Inference Service** - Verified LLM inference with TEE attestation, model registry, canary checks. Initial support for Llama family models, expanding based on demand.
+TEE deployments can't do this. Recreating the container invalidates the attestation, breaks sealed secrets, and loses the on-chain deployment ID. The SDK enforces this at the type level: any TEE-enabled config automatically sets `SecretInjectionPolicy::SealedOnly`.
 
-**Sandbox Runtime** - Isolated code execution with deterministic replay verification. Python and JavaScript first, then Rust and WASM.
+Instead, secrets flow through a key exchange protocol:
 
-**Agent Toolkit** - Pre-built patterns for AI agents: tool execution, memory persistence, multi-step reasoning with verification at each step.
+1. The TEE generates an X25519 key pair
+2. The public key is embedded in the attestation report
+3. Clients encrypt secrets to this key using ChaCha20-Poly1305
+4. Only the TEE holding the private key can decrypt
 
-### Protocol Improvements
+The `TeeAuthService` manages ephemeral key exchange sessions with configurable TTL and automatic cleanup. It runs as a background service alongside the blueprint runner.
 
-**Faster finality** - Current job settlement takes longer than it should. We're working on optimistic settlement with fraud proofs to reduce latency for trusted operators.
+## Cloud backends: what each provider looks like
 
-**Better operator matching** - Right now, customers manually select operators. We're building automated matching based on requirements, reputation, and availability.
+The SDK includes real implementations for three cloud providers, not stubs or mocks.
 
-**Cross-blueprint composition** - Using output from one blueprint as input to another without manual coordination. The data analysis agent example from the previous post should be a single transaction, not multiple.
+**AWS Nitro** launches EC2 instances with `EnclaveOptions: true`, generates user-data scripts that configure `nitro-cli`, sets up vsock proxies for communication between the parent instance and the enclave, and polls `DescribeInstances` until the enclave is healthy.
 
-### Developer Experience
+**GCP Confidential Space** creates Compute Engine VMs with `confidentialInstanceConfig` and `tee-image-reference` metadata. The Confidential Space launcher auto-pulls the container image, starts it inside the TEE, and exposes OIDC attestation tokens via a Unix socket. Supports both AMD SEV-SNP (N2D machines) and Intel TDX (C3 machines).
 
-**Documentation overhaul** - Honest assessment: our docs have gaps. Q1 priority is comprehensive guides, tutorials, and API references.
+**Azure CVM** provisions Confidential VMs (DCasv5/ECasv5 series) through the ARM REST API, retrieves attestation from Microsoft Azure Attestation (MAA), and supports Secure Key Release from Key Vault. The HCL generates ephemeral RSA key pairs sealed to the vTPM.
 
-**VSCode extension** - Autocomplete, inline documentation, debugging support. The basics that make development faster.
+All three are feature-gated so the default build stays lightweight:
 
-**Blueprint templates** - Clone-and-modify starting points for common patterns. Don't start from scratch.
+```toml
+[features]
+aws-nitro = ["dep:aws-sdk-ec2", "dep:aws-config"]
+gcp-confidential = ["dep:gcp-auth", "dep:reqwest"]
+azure-snp = ["dep:reqwest"]
+```
 
-## Medium-Term: 2026
+## Blueprint requirements: telling the manager you need TEE
 
-### The Operator Ecosystem
+A blueprint declares its TEE needs through `TeeRequirements`, which the blueprint manager inspects at deploy time to route the workload to an appropriate host:
 
-Today, Tangle has a handful of operators. That works for current demand. It won't work at scale.
+```rust
+let requirements = TeeRequirements {
+    requirement: TeeRequirement::Required,
+    providers: TeeProviderSelector::AllowList(vec![
+        TeeProvider::AwsNitro,
+        TeeProvider::GcpConfidential,
+    ]),
+    min_attestation_age_secs: Some(3600),
+};
+```
 
-Building a healthy operator ecosystem means:
+This is how the manager knows to deploy on TEE-capable infrastructure rather than a standard Docker host. The `requirement` field controls whether TEE is mandatory (fail if unavailable) or preferred (degrade gracefully). The `providers` field narrows which cloud backends are acceptable.
 
-**Clear economics** - Operators need to understand what they'll earn, what hardware they need, and what risks they take. We're working on better tooling for operators to evaluate blueprints.
+## What's real and what's next
 
-**Specialization** - Some operators will specialize in AI inference (GPUs), some in general compute (CPUs), some in high-security workloads (TEEs). The protocol should support and reward specialization.
+Everything described above is shipped and tested (162 tests across attestation, config, exchange, middleware, and runtime). The cloud backends make real API calls to provision real VMs.
 
-**Reputation systems** - Long-term track records matter. Operators who consistently deliver should be preferred. We're designing reputation that's hard to game and meaningful to customers.
+What's coming next:
+- **Periodic attestation refresh.** Re-attest on a schedule and update the on-chain hash, catching enclave reboots and measurement drift.
+- **Contract-driven hybrid routing.** Read the `teeRequired` flag from the on-chain contract instead of a local policy file.
+- **Hardware-specific attestation.** TDX TDREPORT via `/dev/tdx_guest` ioctl, SEV-SNP report via `/dev/sev-guest`. Currently the direct backend uses software measurement (binary hash); hardware attestation integration requires platform SDK work.
 
-### Expanding Verification
+If you're building a blueprint that handles sensitive data, model weights, or private inference, TEE is how you prove to users that their data stays confidential. The SDK handles the complexity of multi-cloud provisioning, attestation verification, and sealed secret management so your blueprint code stays focused on the actual service logic.
 
-Current verification is good but not complete:
-
-**Better AI verification** - zkML is improving. We're tracking projects like EZKL and Giza. When proof generation becomes practical for common models, we'll integrate it.
-
-**Formal verification for blueprints** - Proving that blueprint logic is correct, not just that it runs. This is research-grade work, but important for high-stakes services.
-
-**Hardware diversity** - Currently we support Intel SGX and AMD SEV. Adding ARM TrustZone (for mobile/edge), RISC-V enclaves, and GPU TEEs as they mature.
-
-### Integration Layer
-
-Tangle is infrastructure. It's most useful when integrated with other systems:
-
-**Agent frameworks** - Direct integration with LangChain, AutoGPT, and emerging agent platforms. Call Tangle blueprints as easily as calling an API.
-
-**Payment rails** - x402 integration is started. Expanding to other payment protocols. Agents should pay for services without manual intervention.
-
-**Data availability** - For services that need persistent state, integration with Celestia, EigenDA, or similar DA layers.
-
-## Long-Term Vision
-
-### The Operating Layer for Autonomous Systems
-
-Here's the thesis: as AI agents become more capable, they'll need infrastructure that matches their autonomy. You can't have an autonomous agent that depends on a centralized provider who can turn it off, observe it, or modify its behavior.
-
-Tangle is building the operating layer for this future:
-
-**Agents own their infrastructure** - Not accounts on someone else's platform, but actual ownership of computation resources, with cryptographic guarantees of independence.
-
-**Trust minimization everywhere** - Every operation verifiable, every operator accountable, every failure recoverable. Trust is expensive; verification is cheap.
-
-**Composable autonomy** - Agents using agents using agents, with accountability chains that extend through the entire stack.
-
-We don't know exactly what this looks like. Nobody does. But we're building the primitives that will be needed.
-
-### What We're Not Building
-
-Equally important:
-
-**Not building agents** - We build infrastructure for agents. Others build the agents themselves. We're good at cryptoeconomic protocols; others are good at AI/ML.
-
-**Not building another L1** - Tangle is a specialized chain for service coordination. General-purpose L1s exist. We integrate with them rather than competing.
-
-**Not building everything in-house** - We're a small team. We're building core protocol and critical blueprints. The ecosystem builds everything else.
-
-Focus matters. We're staying focused.
-
-## The Competitive Landscape
-
-Being honest about alternatives:
-
-**Traditional cloud (AWS, GCP, Azure)** - Still the right choice for most applications. Better tooling, more mature, lower complexity. Choose Tangle when you specifically need verification, decentralization, or cryptoeconomic accountability.
-
-**Other decentralized compute (Akash, Golem, etc.)** - Different focus. They're solving for cheaper compute. We're solving for verified compute. Complementary, not competing.
-
-**AI-specific platforms (Replicate, Modal, etc.)** - Great for standard AI workloads. Less good when you need verification guarantees or can't trust the operator.
-
-**Blockchain "AI" projects** - Many are vaporware or marketing. We're building actual infrastructure that works. The difference becomes obvious when you try to use it.
-
-## What We Need
-
-Tangle succeeds if an ecosystem grows around it. That requires:
-
-**Developers building blueprints** - The SDK exists. The primitives work. We need people building services: AI inference, code execution, data processing, novel applications we haven't thought of.
-
-**Operators running infrastructure** - Hardware owners who want to earn by providing verified computation. GPUs, TEE-enabled servers, specialized hardware.
-
-**Customers using services** - AI agents, applications, developers who need verified computation. Without demand, there's no ecosystem.
-
-**Researchers improving verification** - zkML, formal methods, new TEE designs. The verification frontier keeps advancing. We need to stay current.
-
-## How to Get Involved
-
-**Build something** - The SDK is available. Pick a service that interests you. Build it. We'll help.
-
-**Run an operator** - If you have hardware, consider becoming an operator. We're working on documentation for this.
-
-**Provide feedback** - Use the tools. Tell us what's broken. We're small enough that feedback reaches the people who can fix it.
-
-**Join the conversation** - Discord is where planning happens. Research discussions, feature requests, bug reports. It's all there.
-
-## Closing Thoughts
-
-Six posts ago, we started with a simple observation: AI agents are becoming a workforce, and workforces need infrastructure.
-
-We've covered:
-- Why decentralized infrastructure matters for AI
-- How blueprints coordinate operators and customers
-- What verification mechanisms prove and don't prove
-- How to build services on Tangle
-- Specific patterns for AI inference and sandboxes
-
-The honest summary: Tangle is early-stage infrastructure that works but isn't polished. We're building something we believe matters, learning as we go, and inviting others to build with us.
-
-If any of this resonates, come talk to us. The Discord link is below.
-
-Thanks for reading.
-
----
-
-Drew Stone
-Founder, Tangle
-
----
-
-**Links:**
-- [Discord](https://discord.gg/cv8EfJu3Tn)
-- [Twitter](https://twitter.com/tangle_network)
-- [Docs](https://docs.tangle.tools)
-- [Blueprint SDK](https://github.com/tangle-network/blueprint)
-- [GitHub](https://github.com/tangle-network)
+[Blueprint SDK on GitHub](https://github.com/tangle-network/blueprint) · [TEE crate source](https://github.com/tangle-network/blueprint/tree/main/crates/tee) · [Previous: Building AI Services on Tangle](/post/building-ai-services-on-tangle)
